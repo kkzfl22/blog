@@ -16,21 +16,17 @@ categories: Hadoop
 >
 > 项目为 Maven Project，添加依赖仅限于测试连接，如做额外开发可能会缺少依赖。请自行添加
 
-
 ## 操作环境：
 
 - CentOS：7
-
 - Ambari：2.5.1.0
-
 - HDP：2.6.2.0-205
-
-- 客户机：Windows 10 
+- 客户机：Windows 10
 
 
 ## 准备文件：
 
-Kerberos 配置文件。该文件一般位于 Kerberos 服务器的 `/etc/krb5.conf ` 位置。将其下载到本地。
+Kerberos 配置文件。该文件一般位于 Kerberos 服务器的 `/etc/krb5.conf` 位置。将其下载到本地。
 
 Hadoop 的配置文件。
 
@@ -42,13 +38,9 @@ Hadoop 的配置文件。
 
 上面这篇博客讲解了 java 连接带有 Kerberos 的 HDFS 流程。可以看一下。
 
-
-
-新建一个 Maven 项目 
+新建一个 Maven 项目
 
 ![maven_project](http://ono3vb8rf.bkt.clouddn.com/FgvE_RlTJ6YsxhMw7m9lbDSKLPvd.png)
-
-
 
 添加 HDFS 依赖
 
@@ -71,8 +63,6 @@ Hadoop 的配置文件。
 将 `krb5.conf` `tendata.keytab`  放到项目根目录
 
 ![](http://ono3vb8rf.bkt.clouddn.com/Fvr3toNl75tVQV6siXCnKq1bdQ_g.png)
-
-
 
 实例代码
 
@@ -145,10 +135,6 @@ public class HadoopAuth {
         </dependency>
 ```
 
-
-
-
-
 实例代码
 
 ```java
@@ -219,8 +205,6 @@ public class HBaseAuth {
 
 ```
 
-
-
 ## Java 连接 Hive
 
 添加 Hive 依赖
@@ -247,8 +231,6 @@ public class HBaseAuth {
             <version>4.5</version>
         </dependency>
 ```
-
-
 
 实例代码
 
@@ -301,8 +283,6 @@ public class HiveAuth {
 
 ```
 
-
-
 ## Java 连接 Spark
 
 使用 Java 连接 Spark 应该是少引用了某个参数，导致指定的安全认证参数传不进去。一直认定是 SIMPLE。
@@ -312,8 +292,6 @@ public class HiveAuth {
 在 Resource 目录下放入 `core-site.xml` `yarn-site.xml` 两个文件。
 
 ![](http://ono3vb8rf.bkt.clouddn.com/FqF9JVuTAUIj3RWpkc0lP59QtHIa.png)
-
-
 
 添加 Spark 依赖
 
@@ -382,8 +360,6 @@ public class SparkAuth {
 
 ```
 
-
-
 ## Scala 连接 Spark
 
 针对于 Scala Spark 的环境请自行配置，具体连接代码如下。
@@ -414,8 +390,6 @@ object Put{
   }
 }
 ```
-
-
 
 ## 错误总结
 
@@ -461,8 +435,6 @@ Caused by: KrbException: Generic error (description in e-text) (60) - Unable to 
 
 主要原因在代码中没有添加 `krb5.conf` 这个配置，所以检查这个配置文件的是否存在和文件内容的正确性
 
-
-
 ##### 2. org.apache.hadoop.hbase.exceptions.ConnectionClosingException: Call to m1.node.hadoop/192.168.10.1:16000 failed
 
 读取 HBase 信息，连接到 HBase 没反应，重复出现下面的信息。
@@ -489,14 +461,12 @@ Call exception, tries=10, retries=31, started=48283 ms ago, cancelled=false, msg
 
 而正确的创建方式应该是第二种。
 
-```
+```java
 Configuration conf = new Configuration();
 Configuration conf = HBaseConfiguration.create();
 ```
 
-
-
-#####3.  [org.apache.hadoop.hbase.client.RpcRetryingCaller] - Call exception, tries=11, retries=35, started=48413 ms ago, cancelled=false, msg=
+##### 3.  [org.apache.hadoop.hbase.client.RpcRetryingCaller] - Call exception, tries=11, retries=35, started=48413 ms ago, cancelled=false, msg=
 
 连接 HBase 没有反应，重复出现 Call exception
 
@@ -519,15 +489,11 @@ Configuration conf = HBaseConfiguration.create();
 conf.set("hbase.security.authentication", "kerberos");      // 指定 HBase 安全认证方式为 Kerberos。
 ```
 
-
-
 ##### 4. java.io.IOException: java.lang.reflect.InvocationTargetException
 
 连接 HBase 出现 `org.apache.hadoop.hbase.ipc.controller.ServerRpcControllerFactory` 类找不到
 
-
-
-```
+```java
 Exception in thread "main" java.io.IOException: java.lang.reflect.InvocationTargetException
 	at org.apache.hadoop.hbase.client.ConnectionFactory.createConnection(ConnectionFactory.java:240)
 	at org.apache.hadoop.hbase.client.ConnectionFactory.createConnection(ConnectionFactory.java:218)
@@ -575,10 +541,6 @@ https://www.cnblogs.com/itboys/p/6862366.html
 2. 如果当前的应用开发工程配置项中包含该配置项，则应用开发程序还需要引入Jar包“phoenix-core-4.4.0-HBase-1.0.jar”。此Jar包可以从HBase客户端安装目录下的“HBase/hbase/lib”获取。
 
 3. 如果不想引入该Jar包，请将应用开发工程的配置文件“hbase-site.xml”中的配置“hbase.rpc.controllerfactory.class”删除掉。
-
-
-
-
 
 ##### 5. SIMPLE authentication is not enabled.  Available:[TOKEN, KERBEROS]
 
@@ -648,8 +610,6 @@ Caused by: org.apache.hadoop.ipc.RemoteException(org.apache.hadoop.security.Acce
 
 当人加入了上述配置文件后，重新运行又会出现下面的错误
 
-
-
 ##### 6.  Can't get Master Kerberos principal for use as renewer
 
 记不得这个错误有没有在其他地方出现过了。反正现在在使用 Spark 的时候出现了。
@@ -691,8 +651,6 @@ Exception in thread "main" java.io.IOException: Can't get Master Kerberos princi
 
 在 Resource 目录下引入 `yarn-site.xml` 配置文件
 
-
-
 **针对前两个错误，主要在 Spark 中出现。本人猜测，可能是因为在 Windows 端运行 local 模式程序的时候，本地作为 Driver，当 Executor 端 真正去访问 HDFS 中的资源的时候， Executor 并没有拿到认证身份。所以，在加入配置文件后， Executor 端会通过配置去相应位置使用 keytab 获取 kgt ，然后正常访问集群中的资源。**
 
 本人才疏学浅，说法可能有误，上述说法仅代表本人观点。如有不正确还望及时联系纠正。
@@ -711,4 +669,3 @@ configuration.addResource("hdfs-site.xml");
 configuration.addResource("mapred-site.xml");
 configuration.addResource("yarn-site.xml");
 ```
-

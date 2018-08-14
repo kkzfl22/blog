@@ -17,7 +17,7 @@ categories: Documents
 
 ### 1.1.1 安装KDC
 
-在生产环境中设置Kerberos时，最好将多个从属KDC与主KDC一起使用，以确保Kerberized服务的持续可用性。每个KDC都包含Kerberos数据库的副本。主KDC包含领域数据库的可写拷贝，它会定期复制到从属KDC。所有数据库更改（如密码更改）都在主KDC上进行。当主KDC不可用时，从属KDC提供Kerberos票证授予服务，但不提供数据库管理。麻省理工学院建议您安装所有KDC，以便能够作为主机或其中一个从机。这将使您能够轻松地切换主KDC与其中一个从站（如果需要）（请参阅[*切换主从KDC*](http://web.mit.edu/kerberos/krb5-latest/doc/admin/install_kdc.html#switch-master-slave)）。此安装过程基于该建议。
+在生产环境中设置Kerberos时，最好将多个从属KDC与主KDC一起使用，以确保Kerberized服务的持续可用性。每个KDC都包含Kerberos数据库的副本。主KDC包含领域数据库的可写拷贝，它会定期复制到从属KDC。所有数据库更改（如密码更改）都在主KDC上进行。当主KDC不可用时，从属KDC提供Kerberos票证授予服务，但不提供数据库管理。麻省理工学院建议您安装所有KDC，以便能够作为主机或其中一个从机。这将使您能够轻松地切换主KDC与其中一个从站（如果需要）（请参阅[切换主从KDC](http://web.mit.edu/kerberos/krb5-latest/doc/admin/install_kdc.html#switch-master-slave)）。此安装过程基于该建议。
 
 <!-- more -->
 
@@ -28,7 +28,7 @@ categories: Documents
 
 #### 1.1.1.1 安装和配置主KDC
 
-从操作系统提供的软件包或源中安装Kerberos（请参阅[*单个树中的构建*](http://web.mit.edu/kerberos/krb5-latest/doc/build/doing_build.html#do-build)）。
+从操作系统提供的软件包或源中安装Kerberos（请参阅[单个树中的构建](http://web.mit.edu/kerberos/krb5-latest/doc/build/doing_build.html#do-build)）。
 
 注意
 
@@ -42,13 +42,13 @@ ATHENA.MIT.EDU      - realm name
 admin/admin         - admin principal
 ```
 
-有关此主题文件的默认名称和位置，请参阅[*MIT Kerberos默认值*](http://web.mit.edu/kerberos/krb5-latest/doc/mitK5defaults.html#mitk5defaults)。调整系统环境的名称和路径。
+有关此主题文件的默认名称和位置，请参阅[MIT Kerberos默认值](http://web.mit.edu/kerberos/krb5-latest/doc/mitK5defaults.html#mitk5defaults)。调整系统环境的名称和路径。
 
 #### 1.1.1.2 编辑KDC配置文件
 
-修改配置文件[*krb5.conf*](http://web.mit.edu/kerberos/krb5-latest/doc/admin/conf_files/krb5_conf.html#krb5-conf-5)和 [*kdc.conf*](http://web.mit.edu/kerberos/krb5-latest/doc/admin/conf_files/kdc_conf.html#kdc-conf-5)，以反映您的领域的正确信息（如域名域映射和Kerberos服务器名称）。（有关这些文件的推荐默认位置，请参阅[*MIT Kerberos默认值*](http://web.mit.edu/kerberos/krb5-latest/doc/mitK5defaults.html#mitk5defaults)）。
+修改配置文件[krb5.conf](http://web.mit.edu/kerberos/krb5-latest/doc/admin/conf_files/krb5_conf.html#krb5-conf-5)和 [kdc.conf](http://web.mit.edu/kerberos/krb5-latest/doc/admin/conf_files/kdc_conf.html#kdc-conf-5)，以反映您的领域的正确信息（如域名域映射和Kerberos服务器名称）。（有关这些文件的推荐默认位置，请参阅[MIT Kerberos默认值](http://web.mit.edu/kerberos/krb5-latest/doc/mitK5defaults.html#mitk5defaults)）。
 
-配置中的大多数标签都具有默认值，对大多数站点都有效。[*krb5.conf*](http://web.mit.edu/kerberos/krb5-latest/doc/admin/conf_files/krb5_conf.html#krb5-conf-5)文件中有一些标签必须指定其值，本节将对这些标签进行 说明。
+配置中的大多数标签都具有默认值，对大多数站点都有效。[krb5.conf](http://web.mit.edu/kerberos/krb5-latest/doc/admin/conf_files/krb5_conf.html#krb5-conf-5)文件中有一些标签必须指定其值，本节将对这些标签进行 说明。
 
 如果这些配置文件的位置与默认配置文件的位置不同，请将**KRB5_CONFIG**和**KRB5_KDC_PROFILE**环境变量分别设置为指向krb5.conf和kdc.conf。例如：
 
@@ -59,11 +59,11 @@ export KRB5_KDC_PROFILE=/yourdir/kdc.conf
 
 ##### krb5.conf
 
-如果您不使用DNS TXT记录（请参阅将[*主机名映射到Kerberos领域*](http://web.mit.edu/kerberos/krb5-latest/doc/admin/realm_config.html#mapping-hostnames)），必须在[*libdefaults*](http://web.mit.edu/kerberos/krb5-latest/doc/admin/conf_files/krb5_conf.html#libdefaults) 部分中指定**default_realm**。如果您不使用DNS URI或SRV记录（请参阅 [*KDC*](http://web.mit.edu/kerberos/krb5-latest/doc/admin/realm_config.html#kdc-hostnames)和[*KDC发现的*](http://web.mit.edu/kerberos/krb5-latest/doc/admin/realm_config.html#kdc-discovery)[*主机名*](http://web.mit.edu/kerberos/krb5-latest/doc/admin/realm_config.html#kdc-hostnames)），则必须在[*域*](http://web.mit.edu/kerberos/krb5-latest/doc/admin/conf_files/krb5_conf.html#realms)部分中包含每个*领域*的 **kdc**标签。要在每个领域与kadmin服务器进行通信， 必须在[*域*](http://web.mit.edu/kerberos/krb5-latest/doc/admin/conf_files/krb5_conf.html#realms)部分中设置**admin_server**标记 。
+如果您不使用DNS TXT记录（请参阅将[主机名映射到Kerberos领域](http://web.mit.edu/kerberos/krb5-latest/doc/admin/realm_config.html#mapping-hostnames)），必须在[libdefaults](http://web.mit.edu/kerberos/krb5-latest/doc/admin/conf_files/krb5_conf.html#libdefaults) 部分中指定**default_realm**。如果您不使用DNS URI或SRV记录（请参阅 [KDC](http://web.mit.edu/kerberos/krb5-latest/doc/admin/realm_config.html#kdc-hostnames)和[KDC发现的](http://web.mit.edu/kerberos/krb5-latest/doc/admin/realm_config.html#kdc-discovery)[主机名](http://web.mit.edu/kerberos/krb5-latest/doc/admin/realm_config.html#kdc-hostnames)），则必须在[域](http://web.mit.edu/kerberos/krb5-latest/doc/admin/conf_files/krb5_conf.html#realms)部分中包含每个 *领域* 的 **kdc** 标签。要在每个领域与kadmin服务器进行通信， 必须在[域](http://web.mit.edu/kerberos/krb5-latest/doc/admin/conf_files/krb5_conf.html#realms)部分中设置**admin_server**标记 。
 
 一个例子krb5.conf文件：
 
-```
+```conf
 [libdefaults]
     default_realm = ATHENA.MIT.EDU
 
@@ -81,7 +81,7 @@ The kdc.conf file can be used to control the listening ports of theKDC and kadmi
 
 An example kdc.conf file:
 
-```
+```conf
 [kdcdefaults]
     kdc_listen = 88
     kdc_tcp_listen = 88
@@ -116,15 +116,15 @@ An example kdc.conf file:
 
 #### 1.1.1.2  创建KDC数据库
 
-您将在主KDC上使用[*kdb5_util*](http://web.mit.edu/kerberos/krb5-latest/doc/admin/admin_commands/kdb5_util.html#kdb5-util-8)命令创建Kerberos数据库和可选的[*存储文件*](http://web.mit.edu/kerberos/krb5-latest/doc/basic/stash_file_def.html#stash-definition)。
+您将在主KDC上使用[kdb5_util](http://web.mit.edu/kerberos/krb5-latest/doc/admin/admin_commands/kdb5_util.html#kdb5-util-8)命令创建Kerberos数据库和可选的[存储文件](http://web.mit.edu/kerberos/krb5-latest/doc/basic/stash_file_def.html#stash-definition)。
 
 注意
 
 如果您选择不安装存储文件，KDC将在每次启动时提示您输入主密钥。这意味着KDC无法自动启动，例如在系统重启后。
 
-[*kdb5_util*](http://web.mit.edu/kerberos/krb5-latest/doc/admin/admin_commands/kdb5_util.html#kdb5-util-8)将提示您输入Kerberos数据库的主密码。该密码可以是任何字符串。一个好的密码是你可以记住的密码，但没有人能猜到。不良密码的例子是可以在字典中找到的字词，任何常见或受欢迎的名称，特别是着名人物（或卡通人物），您的用户名（任何形式）（例如，前进，后退，重复两次等），以及本手册中出现的任何样本密码。如果本手册中没有出现的密码的一个例子是“MITiys4K5！”，表示“MIT是Kerberos 5的来源”（这是每个单词的第一个字母，用数字“ 4“表示”for“，最后包括标点符号。）
+[kdb5_util](http://web.mit.edu/kerberos/krb5-latest/doc/admin/admin_commands/kdb5_util.html#kdb5-util-8)将提示您输入Kerberos数据库的主密码。该密码可以是任何字符串。一个好的密码是你可以记住的密码，但没有人能猜到。不良密码的例子是可以在字典中找到的字词，任何常见或受欢迎的名称，特别是着名人物（或卡通人物），您的用户名（任何形式）（例如，前进，后退，重复两次等），以及本手册中出现的任何样本密码。如果本手册中没有出现的密码的一个例子是“MITiys4K5！”，表示“MIT是Kerberos 5的来源”（这是每个单词的第一个字母，用数字“ 4“表示”for“，最后包括标点符号。）
 
-以下是使用[*kdb5_util*](http://web.mit.edu/kerberos/krb5-latest/doc/admin/admin_commands/kdb5_util.html#kdb5-util-8)命令在主KDC上创建Kerberos数据库和存储文件的示例。用您的Kerberos领域的名称替换`ATHENA.MIT.EDU`：
+以下是使用[kdb5_util](http://web.mit.edu/kerberos/krb5-latest/doc/admin/admin_commands/kdb5_util.html#kdb5-util-8)命令在主KDC上创建Kerberos数据库和存储文件的示例。用您的Kerberos领域的名称替换`ATHENA.MIT.EDU`：
 
 ```
 shell% kdb5_util create -r ATHENA.MIT.EDU -s
@@ -138,26 +138,26 @@ Re-enter KDC database master key to verify:  <= Type it again.
 shell%
 ```
 
-这将在*[LOCALSTATEDIR ](http://web.mit.edu/kerberos/krb5-latest/doc/mitK5defaults.html#paths)*  `/krb5kdc`（或在[*kdc.conf*](http://web.mit.edu/kerberos/krb5-latest/doc/admin/conf_files/kdc_conf.html#kdc-conf-5)中[*指定*](http://web.mit.edu/kerberos/krb5-latest/doc/admin/conf_files/kdc_conf.html#kdc-conf-5)的位置）创建五个文件：
+这将在[LOCALSTATEDIR ](http://web.mit.edu/kerberos/krb5-latest/doc/mitK5defaults.html#paths) `/krb5kdc`（或在[kdc.conf](http://web.mit.edu/kerberos/krb5-latest/doc/admin/conf_files/kdc_conf.html#kdc-conf-5)中[指定](http://web.mit.edu/kerberos/krb5-latest/doc/admin/conf_files/kdc_conf.html#kdc-conf-5)的位置）创建五个文件：
 
 - 两个Kerberos数据库文件，`principal`和`principal.ok`
 - Kerberos管理数据库文件`principal.kadm5`
 - 管理数据库锁文件，`principal.kadm5.lock`
 - 在此示例中为`.k5.ATHENA.MIT.EDU`的存储文件。如果您不想使用存储文件，请运行上述命令而不使用**-s**选项。
 
-有关管理Kerberos数据库的更多信息，请参阅Kerberos数据库 [*上的操作*](http://web.mit.edu/kerberos/krb5-latest/doc/admin/database.html#db-operations)。
+有关管理Kerberos数据库的更多信息，请参阅Kerberos数据库 [上的操作](http://web.mit.edu/kerberos/krb5-latest/doc/admin/database.html#db-operations)。
 
 #### 1.1.1.3 将管理员添加到ACL文件
 
-接下来，您需要创建一个访问控制列表（ACL）文件，并将至少一个管理员的Kerberos主体放在其中。该文件由[*kadmind*](http://web.mit.edu/kerberos/krb5-latest/doc/admin/admin_commands/kadmind.html#kadmind-8)守护进程用于控制哪些主体可以查看和对Kerberos数据库文件进行特权修改。ACL文件名由[*kdc.conf中*](http://web.mit.edu/kerberos/krb5-latest/doc/admin/conf_files/kdc_conf.html#kdc-conf-5)的**acl_file** 变量决定; 默认值为*[LOCALSTATEDIR ](http://web.mit.edu/kerberos/krb5-latest/doc/mitK5defaults.html#paths)* `/ krb5kdc/kadm5.acl`。
+接下来，您需要创建一个访问控制列表（ACL）文件，并将至少一个管理员的Kerberos主体放在其中。该文件由[kadmind](http://web.mit.edu/kerberos/krb5-latest/doc/admin/admin_commands/kadmind.html#kadmind-8)守护进程用于控制哪些主体可以查看和对Kerberos数据库文件进行特权修改。ACL文件名由[kdc.conf中](http://web.mit.edu/kerberos/krb5-latest/doc/admin/conf_files/kdc_conf.html#kdc-conf-5)的**acl_file** 变量决定; 默认值为[LOCALSTATEDIR](http://web.mit.edu/kerberos/krb5-latest/doc/mitK5defaults.html#paths) `/ krb5kdc/kadm5.acl`。
 
-有关Kerberos ACL文件的更多信息，请参阅[*kadm5.acl*](http://web.mit.edu/kerberos/krb5-latest/doc/admin/conf_files/kadm5_acl.html#kadm5-acl-5)。
+有关Kerberos ACL文件的更多信息，请参阅[kadm5.acl](http://web.mit.edu/kerberos/krb5-latest/doc/admin/conf_files/kadm5_acl.html#kadm5-acl-5)。
 
 #### 1.1.1.4 将管理员添加到Kerberos数据库
 
 接下来，您需要向Kerberos数据库添加管理主体（即，允许管理Kerberos数据库的主体）。您现在*必须*至少添加一个主体，以允许通过网络进行Kerberos管理守护程序kadmind和kadmin程序之间的通信，以便进一步管理。为此，请使用主KDC上的kadmin.local实用程序。kadmin.local旨在在主KDC主机上运行，而不对管理服务器使用Kerberos身份验证; 相反，它必须对本地文件系统上的Kerberos数据库具有读写访问权限。
 
-您创建的管理员主体应该是您添加到ACL文件的[*管理员*](http://web.mit.edu/kerberos/krb5-latest/doc/admin/install_kdc.html#admin-acl)（请参阅[*将管理员添加到ACL文件*](http://web.mit.edu/kerberos/krb5-latest/doc/admin/install_kdc.html#admin-acl)）。
+您创建的管理员主体应该是您添加到ACL文件的[管理员](http://web.mit.edu/kerberos/krb5-latest/doc/admin/install_kdc.html#admin-acl)（请参阅[将管理员添加到ACL文件](http://web.mit.edu/kerberos/krb5-latest/doc/admin/install_kdc.html#admin-acl)）。
 
 在以下示例中，将 创建管理主体`admin/admin`：
 
@@ -176,7 +176,7 @@ kadmin.local:
 
 #### 1.1.1.5 在主KDC上启动Kerberos守护进程
 
-此时，您可以在主KDC上启动Kerberos KDC（[*krb5kdc*](http://web.mit.edu/kerberos/krb5-latest/doc/admin/admin_commands/krb5kdc.html#krb5kdc-8)）和管理守护程序。要这样做，键入：
+此时，您可以在主KDC上启动Kerberos KDC（[krb5kdc](http://web.mit.edu/kerberos/krb5-latest/doc/admin/admin_commands/krb5kdc.html#krb5kdc-8)）和管理守护程序。要这样做，键入：
 
 ```
 shell% krb5kdc
@@ -187,9 +187,9 @@ shell% kadmind
 
 注意
 
-假设您希望这些守护进程在启动时自动启动，可以将它们添加到KDC的`/ etc / rc`或 `/ etc / inittab`文件中。为了做到这一点，你需要一个 [*藏书文件*](http://web.mit.edu/kerberos/krb5-latest/doc/basic/stash_file_def.html#stash-definition)。
+假设您希望这些守护进程在启动时自动启动，可以将它们添加到KDC的`/ etc / rc`或 `/ etc / inittab`文件中。为了做到这一点，你需要一个 [藏书文件](http://web.mit.edu/kerberos/krb5-latest/doc/basic/stash_file_def.html#stash-definition)。
 
-您可以通过在[*krb5.conf中*](http://web.mit.edu/kerberos/krb5-latest/doc/admin/conf_files/krb5_conf.html#krb5-conf-5)定义的日志记录位置中检查其启动消息来验证它们是否正常启动 （请参阅[*[logging\]*](http://web.mit.edu/kerberos/krb5-latest/doc/admin/conf_files/kdc_conf.html#logging)）。例如：
+您可以通过在[krb5.conf中](http://web.mit.edu/kerberos/krb5-latest/doc/admin/conf_files/krb5_conf.html#krb5-conf-5)定义的日志记录位置中检查其启动消息来验证它们是否正常启动 （请参阅[logging](http://web.mit.edu/kerberos/krb5-latest/doc/admin/conf_files/kdc_conf.html#logging)）。例如：
 
 ```
 shell% tail /var/log/krb5kdc.log
@@ -200,7 +200,7 @@ Dec 02 12:35:52 beeblebrox kadmind[3189](info): starting
 
 启动时守护程序遇到的任何错误也将列在日志记录输出中。
 
-作为附加验证，请检查[*kinit是否*](http://web.mit.edu/kerberos/krb5-latest/doc/user/user_commands/kinit.html#kinit-1)成功执行了您在上一步中创建的主体（[*将管理员添加到Kerberos数据库*](http://web.mit.edu/kerberos/krb5-latest/doc/admin/install_kdc.html#addadmin-kdb)）。跑：
+作为附加验证，请检查[kinit是否](http://web.mit.edu/kerberos/krb5-latest/doc/user/user_commands/kinit.html#kinit-1)成功执行了您在上一步中创建的主体（[将管理员添加到Kerberos数据库](http://web.mit.edu/kerberos/krb5-latest/doc/admin/install_kdc.html#addadmin-kdb)）。跑：
 
 ```
 shell% kinit admin/admin@ATHENA.MIT.EDU
@@ -259,9 +259,9 @@ Entry for principal host/kerberos-1.mit.edu with kvno 2, encryption
 
 文件`/tmp/kerberos-1.keytab`可以作为`/etc/krb5.keytab`安装 在主机`kerberos-1.mit.edu上`。
 
-##### 配置从KDC 
+##### 配置从KDC
 
-数据库传播复制主数据库的内容，但不传播配置文件，存储文件或kadm5 ACL文件。以下文件必须手动复制到每个从站（有关这些文件的默认位置，请参阅 [*MIT Kerberos默认值*](http://web.mit.edu/kerberos/krb5-latest/doc/mitK5defaults.html#mitk5defaults)）：
+数据库传播复制主数据库的内容，但不传播配置文件，存储文件或kadm5 ACL文件。以下文件必须手动复制到每个从站（有关这些文件的默认位置，请参阅 [MIT Kerberos默认值](http://web.mit.edu/kerberos/krb5-latest/doc/mitK5defaults.html#mitk5defaults)）：
 
 - 的krb5.conf
 - kdc.conf中
@@ -270,7 +270,7 @@ Entry for principal host/kerberos-1.mit.edu with kvno 2, encryption
 
 将复制的文件移动到相应的目录中，与主KDC完全相同。kadm5.acl只需要允许从站与主KDC交换。
 
-数据库通过[*kpropd*](http://web.mit.edu/kerberos/krb5-latest/doc/admin/admin_commands/kpropd.html#kpropd-8)守护进程从主KDC传播到从属KDC 。您必须明确指定允许在从机上使用新数据库提供Kerberos转储更新的主体。在KDC状态目录中创建一个名为kpropd.acl的文件，其中包含每个KDC 的`主机`主体：
+数据库通过[kpropd](http://web.mit.edu/kerberos/krb5-latest/doc/admin/admin_commands/kpropd.html#kpropd-8)守护进程从主KDC传播到从属KDC 。您必须明确指定允许在从机上使用新数据库提供Kerberos转储更新的主体。在KDC状态目录中创建一个名为kpropd.acl的文件，其中包含每个KDC 的`主机`主体：
 
 ```
 host/kerberos.mit.edu@ATHENA.MIT.EDU
@@ -287,7 +287,7 @@ host/kerberos-1.mit.edu@ATHENA.MIT.EDU
 krb5_prop stream tcp nowait root /usr/local/sbin/kpropd kpropd
 ```
 
-您还需要在每个KDC上的`/ etc / services中`添加以下行（如果尚未存在）（假定使用默认端口）：
+您还需要在每个KDC上的`/etc/services中`添加以下行（如果尚未存在）（假定使用默认端口）：
 
 ```
 krb5_prop       754/tcp               # Kerberos slave propagation
@@ -295,7 +295,7 @@ krb5_prop       754/tcp               # Kerberos slave propagation
 
 重新启动inetd守护进程。
 
-或者，将[*kpropd*](http://web.mit.edu/kerberos/krb5-latest/doc/admin/admin_commands/kpropd.html#kpropd-8)作为独立守护进程启动。启用增量传播时，这是必需的。
+或者，将[kpropd](http://web.mit.edu/kerberos/krb5-latest/doc/admin/admin_commands/kpropd.html#kpropd-8)作为独立守护进程启动。启用增量传播时，这是必需的。
 
 现在，从KDC能够接受数据库传播，您需要从主服务器传播数据库。
 
@@ -321,7 +321,7 @@ Database propagation to kerberos-1.mit.edu: SUCCEEDED
 
 **注意：**
 
-请记住，您需要 使用KDC状态目录的名称替换`/ usr / local / var / krb5kdc`。
+请记住，您需要 使用KDC状态目录的名称替换`/usr/local/var/krb5kdc`。
 
 ```
 #!/bin/sh
@@ -336,7 +336,7 @@ do
 done
 ```
 
-您将需要设置一个cron作业以在您之前决定的时间间隔内运行此脚本（请参阅[*数据库传播*](http://web.mit.edu/kerberos/krb5-latest/doc/admin/realm_config.html#db-prop)）。
+您将需要设置一个cron作业以在您之前决定的时间间隔内运行此脚本（请参阅[数据库传播](http://web.mit.edu/kerberos/krb5-latest/doc/admin/realm_config.html#db-prop)）。
 
 现在，从KDC具有Kerberos数据库的副本，您可以启动krb5kdc守护程序：
 
@@ -344,19 +344,19 @@ done
 shell% krb5kdc
 ```
 
-与主KDC一样，您可能希望将此命令添加到KDC的`/ etc / rc`或`/ etc / inittab`文件中，以便在启动时自动启动krb5kdc守护程序。
+与主KDC一样，您可能希望将此命令添加到KDC的`/etc/rc`或`/etc/inittab`文件中，以便在启动时自动启动krb5kdc守护程序。
 
 ##### 安装失败了？
 
-您可能会遇到以下错误消息。有关可能的原因和解决方案的更详细的讨论，请单击错误链接重定向到[*故障排除*](http://web.mit.edu/kerberos/krb5-latest/doc/admin/troubleshoot.html#troubleshoot) 部分。
+您可能会遇到以下错误消息。有关可能的原因和解决方案的更详细的讨论，请单击错误链接重定向到[故障排除](http://web.mit.edu/kerberos/krb5-latest/doc/admin/troubleshoot.html#troubleshoot) 部分。
 
-1. [*kprop：连接到服务器时没有到主机的路由*](http://web.mit.edu/kerberos/krb5-latest/doc/admin/troubleshoot.html#kprop-no-route)
-2. [*kprop：连接到服务器时拒绝连接*](http://web.mit.edu/kerberos/krb5-latest/doc/admin/troubleshoot.html#kprop-con-refused)
-3. [*kprop：服务器拒绝身份验证（在sendauth交换期间），同时向服务器进行身份验证*](http://web.mit.edu/kerberos/krb5-latest/doc/admin/troubleshoot.html#kprop-sendauth-exchange)
+1. [kprop：连接到服务器时没有到主机的路由](http://web.mit.edu/kerberos/krb5-latest/doc/admin/troubleshoot.html#kprop-no-route)
+2. [kprop：连接到服务器时拒绝连接](http://web.mit.edu/kerberos/krb5-latest/doc/admin/troubleshoot.html#kprop-con-refused)
+3. [kprop：服务器拒绝身份验证（在sendauth交换期间），同时向服务器进行身份验证](http://web.mit.edu/kerberos/krb5-latest/doc/admin/troubleshoot.html#kprop-sendauth-exchange)
 
 #### 1.1.1.7 将Kerberos主体添加到数据库
 
-一旦KDC建立并运行，就可以使用 [*kadmin*](http://web.mit.edu/kerberos/krb5-latest/doc/admin/admin_commands/kadmin_local.html#kadmin-1)将用户，主机和其他服务的[*主体*](http://web.mit.edu/kerberos/krb5-latest/doc/admin/admin_commands/kadmin_local.html#kadmin-1)加载到Kerberos数据库。此过程在[*添加，修改和删除主体中*](http://web.mit.edu/kerberos/krb5-latest/doc/admin/database.html#add-mod-del-princs)有详细描述。
+一旦KDC建立并运行，就可以使用 [kadmin](http://web.mit.edu/kerberos/krb5-latest/doc/admin/admin_commands/kadmin_local.html#kadmin-1)将用户，主机和其他服务的[主体](http://web.mit.edu/kerberos/krb5-latest/doc/admin/admin_commands/kadmin_local.html#kadmin-1)加载到Kerberos数据库。此过程在[添加，修改和删除主体中](http://web.mit.edu/kerberos/krb5-latest/doc/admin/database.html#add-mod-del-princs)有详细描述。
 
 您可能偶尔想使用您的一个从属KDC作为主人。如果升 级主KDC，或者主KDC有磁盘崩溃，可能会发生这种情况。有关说明，请参阅以下部分。
 
@@ -370,21 +370,21 @@ shell% krb5kdc
 
 1. 杀死kadmind进程。
 2. 禁用传播数据库的cron作业。
-3. 手动运行数据库传播脚本，以确保从站全部拥有数据库的最新副本（请参阅 [*将数据库传播到每个从站KDC*](http://web.mit.edu/kerberos/krb5-latest/doc/admin/install_kdc.html#kprop-to-slaves)）。
+3. 手动运行数据库传播脚本，以确保从站全部拥有数据库的最新副本（请参阅 [将数据库传播到每个从站KDC](http://web.mit.edu/kerberos/krb5-latest/doc/admin/install_kdc.html#kprop-to-slaves)）。
 
 在*新*主人KDC上：
 
-1. 启动[*kadmind*](http://web.mit.edu/kerberos/krb5-latest/doc/admin/admin_commands/kadmind.html#kadmind-8)守护程序（请参阅[*在主KDC上启动Kerberos守护程序*](http://web.mit.edu/kerberos/krb5-latest/doc/admin/install_kdc.html#start-kdc-daemons)）。
-2. 设置cron作业以传播数据库（请参阅 [*将数据库传播到每个从属KDC*](http://web.mit.edu/kerberos/krb5-latest/doc/admin/install_kdc.html#kprop-to-slaves)）。
-3. 切换旧的和新的主KDC的CNAME。如果不能这样做，您需要在Kerberos领域的每台客户端机器上更改[*krb5.conf*](http://web.mit.edu/kerberos/krb5-latest/doc/admin/conf_files/krb5_conf.html#krb5-conf-5)文件。
+1. 启动[kadmind](http://web.mit.edu/kerberos/krb5-latest/doc/admin/admin_commands/kadmind.html#kadmind-8)守护程序（请参阅[在主KDC上启动Kerberos守护程序](http://web.mit.edu/kerberos/krb5-latest/doc/admin/install_kdc.html#start-kdc-daemons)）。
+2. 设置cron作业以传播数据库（请参阅 [将数据库传播到每个从属KDC](http://web.mit.edu/kerberos/krb5-latest/doc/admin/install_kdc.html#kprop-to-slaves)）。
+3. 切换旧的和新的主KDC的CNAME。如果不能这样做，您需要在Kerberos领域的每台客户端机器上更改[krb5.conf](http://web.mit.edu/kerberos/krb5-latest/doc/admin/conf_files/krb5_conf.html#krb5-conf-5)文件。
 
 #### 1.1.1.10 增量数据库传播
 
-如果您希望Kerberos数据库变大，您可能希望将增量传播设置为从属KDC。有关 详细信息，请参阅[*增量数据库传播*](http://web.mit.edu/kerberos/krb5-latest/doc/admin/database.html#incr-db-prop)。
+如果您希望Kerberos数据库变大，您可能希望将增量传播设置为从属KDC。有关 详细信息，请参阅[增量数据库传播](http://web.mit.edu/kerberos/krb5-latest/doc/admin/database.html#incr-db-prop)。
 
 ### 1.1.2 安装和配置UNIX客户机
 
-Kerberized客户端程序包括[*kinit*](http://web.mit.edu/kerberos/krb5-latest/doc/user/user_commands/kinit.html#kinit-1)， [*klist*](http://web.mit.edu/kerberos/krb5-latest/doc/user/user_commands/klist.html#klist-1)，[*kdestroy*](http://web.mit.edu/kerberos/krb5-latest/doc/user/user_commands/kdestroy.html#kdestroy-1)和[*kpasswd*](http://web.mit.edu/kerberos/krb5-latest/doc/user/user_commands/kpasswd.html#kpasswd-1)。所有这些程序都在目录[*BINDIR中*](http://web.mit.edu/kerberos/krb5-latest/doc/mitK5defaults.html#paths)。
+Kerberized客户端程序包括[kinit](http://web.mit.edu/kerberos/krb5-latest/doc/user/user_commands/kinit.html#kinit-1)， [klist](http://web.mit.edu/kerberos/krb5-latest/doc/user/user_commands/klist.html#klist-1)，[kdestroy](http://web.mit.edu/kerberos/krb5-latest/doc/user/user_commands/kdestroy.html#kdestroy-1)和[kpasswd](http://web.mit.edu/kerberos/krb5-latest/doc/user/user_commands/kpasswd.html#kpasswd-1)。所有这些程序都在目录[BINDIR中](http://web.mit.edu/kerberos/krb5-latest/doc/mitK5defaults.html#paths)。
 
 您通常可以通过使用PAM将Kerberos与登录系统集成在客户端计算机上。细节因操作系统而异，应在操作系统文档中介绍。如果这样做，您需要确保您的用户知道在登录时使用其Kerberos密码。
 
@@ -392,7 +392,7 @@ Kerberized客户端程序包括[*kinit*](http://web.mit.edu/kerberos/krb5-latest
 
 #### 1.1.2.1客户机配置文件
 
-运行Kerberos的每台机器都应该有一个[*krb5.conf*](http://web.mit.edu/kerberos/krb5-latest/doc/admin/conf_files/krb5_conf.html#krb5-conf-5)文件。至少应在[*libdefaults*](http://web.mit.edu/kerberos/krb5-latest/doc/admin/conf_files/krb5_conf.html#libdefaults) 中定义**default_realm**设置 。如果您没有使用DNS SRV记录（[*KDC的主机名*](http://web.mit.edu/kerberos/krb5-latest/doc/admin/realm_config.html#kdc-hostnames)）或URI记录（[*KDC Discovery*](http://web.mit.edu/kerberos/krb5-latest/doc/admin/realm_config.html#kdc-discovery)），它还必须包含一个[*域*](http://web.mit.edu/kerberos/krb5-latest/doc/admin/conf_files/krb5_conf.html#realms) 部分，其中包含您所在领域的KDC的信息。
+运行Kerberos的每台机器都应该有一个[krb5.conf](http://web.mit.edu/kerberos/krb5-latest/doc/admin/conf_files/krb5_conf.html#krb5-conf-5)文件。至少应在[libdefaults](http://web.mit.edu/kerberos/krb5-latest/doc/admin/conf_files/krb5_conf.html#libdefaults) 中定义**default_realm**设置 。如果您没有使用DNS SRV记录（[KDC的主机名](http://web.mit.edu/kerberos/krb5-latest/doc/admin/realm_config.html#kdc-hostnames)）或URI记录（[KDC Discovery](http://web.mit.edu/kerberos/krb5-latest/doc/admin/realm_config.html#kdc-discovery)），它还必须包含一个[域](http://web.mit.edu/kerberos/krb5-latest/doc/admin/conf_files/krb5_conf.html#realms) 部分，其中包含您所在领域的KDC的信息。
 
 考虑将**rdns**设置为false，以减少对服务主机名的正确DNS信息的依赖。关闭此标志表示通过转发名称解析（将您的域名添加到不合格的主机名，并在DNS中解析CNAME记录），服务主机名将被规范化，但不能通过反向地址查找。只有历史原因，此标志的默认值为true。
 
@@ -400,7 +400,7 @@ Kerberized客户端程序包括[*kinit*](http://web.mit.edu/kerberos/krb5-latest
 
 考虑调整**ticket_lifetime**设置以匹配用户可能的会话长度。例如，如果您的大多数用户将登录八小时工作日，则可以将默认值设置为十小时，以便在早晨获得的票据在工作日结束后不久即将到期。用户仍然可以在必要时手动请求更长的票据，最多允许每个用户在KDC上的主体记录允许的最大值。
 
-如果客户机主机可以访问不同领域的服务，定义[*domain_realm*](http://web.mit.edu/kerberos/krb5-latest/doc/admin/conf_files/krb5_conf.html#domain-realm)映射可能是有用的，以便客户端知道哪些主机属于哪个领域。但是，如果您的客户端和KDC正在运行1.7或更高版本，那么在客户端机器上保留此部分，只需将其定义在KDC的krb5.conf中即可。
+如果客户机主机可以访问不同领域的服务，定义[domain_realm](http://web.mit.edu/kerberos/krb5-latest/doc/admin/conf_files/krb5_conf.html#domain-realm)映射可能是有用的，以便客户端知道哪些主机属于哪个领域。但是，如果您的客户端和KDC正在运行1.7或更高版本，那么在客户端机器上保留此部分，只需将其定义在KDC的krb5.conf中即可。
 
 ### 1.1.3 UNIX应用服务器
 
@@ -410,9 +410,9 @@ Kerberized客户端程序包括[*kinit*](http://web.mit.edu/kerberos/krb5-latest
 
 #### 1.1.3.1 keytab文件
 
-所有Kerberos服务器计算机都需要一个keytab文件才能向KDC进行身份验证。默认情况下，在类UNIX系统上，此文件名为[*DEFKTNAME*](http://web.mit.edu/kerberos/krb5-latest/doc/mitK5defaults.html#paths)。keytab文件是主机密钥的本地副本。keytab文件是入侵的潜在入口点，如果被破坏，将允许不受限制地访问其主机。keytab文件只能由root读取，只能存在于本机的本地磁盘上。该文件不应该是机器的任何备份的一部分，除非访问备份数据与访问机器的root密码一样紧密。
+所有Kerberos服务器计算机都需要一个keytab文件才能向KDC进行身份验证。默认情况下，在类UNIX系统上，此文件名为[DEFKTNAME](http://web.mit.edu/kerberos/krb5-latest/doc/mitK5defaults.html#paths)。keytab文件是主机密钥的本地副本。keytab文件是入侵的潜在入口点，如果被破坏，将允许不受限制地访问其主机。keytab文件只能由root读取，只能存在于本机的本地磁盘上。该文件不应该是机器的任何备份的一部分，除非访问备份数据与访问机器的root密码一样紧密。
 
-为了生成主机的密钥表，主机必须在Kerberos数据库中具有一个主体。在主机的[*添加，修改和删除*](http://web.mit.edu/kerberos/krb5-latest/doc/admin/database.html#add-mod-del-princs)过程中，对主机数据库的添加过程进行了详细描述。（请参阅 [*为从属KDC创建主机*](http://web.mit.edu/kerberos/krb5-latest/doc/admin/install_kdc.html#slave-host-key)密钥表进行简要说明。）keytab是通过运行[*kadmin*](http://web.mit.edu/kerberos/krb5-latest/doc/admin/admin_commands/kadmin_local.html#kadmin-1)并发出[*ktadd*](http://web.mit.edu/kerberos/krb5-latest/doc/admin/admin_commands/kadmin_local.html#ktadd) 命令生成的。
+为了生成主机的密钥表，主机必须在Kerberos数据库中具有一个主体。在主机的[添加，修改和删除](http://web.mit.edu/kerberos/krb5-latest/doc/admin/database.html#add-mod-del-princs)过程中，对主机数据库的添加过程进行了详细描述。（请参阅 [为从属KDC创建主机](http://web.mit.edu/kerberos/krb5-latest/doc/admin/install_kdc.html#slave-host-key)密钥表进行简要说明。）keytab是通过运行[kadmin](http://web.mit.edu/kerberos/krb5-latest/doc/admin/admin_commands/kadmin_local.html#kadmin-1)并发出[ktadd](http://web.mit.edu/kerberos/krb5-latest/doc/admin/admin_commands/kadmin_local.html#ktadd) 命令生成的。
 
 例如，要生成一个密钥表文件，以允许主机 `trillium.mit.edu`为服务主机，FTP，和流行，管理员认证`joeadmin`会发出命令（在 `trillium.mit.edu`）：
 
@@ -437,13 +437,13 @@ trillium%
 
 Kerberos V5可以保护您的主机免受某些类型的入侵攻击，但是可以安装Kerberos V5，并且仍然使您的主机容易受到攻击。显然，安装指南不是试图为每一次可能的攻击列出一个详尽的反措施清单，但值得注意的是一些较大的漏洞和如何关闭它们。
 
-我们建议安全机器的备份排除keytab文件（[*DEFKTNAME*](http://web.mit.edu/kerberos/krb5-latest/doc/mitK5defaults.html#paths)）。如果不可能，备份应至少在本地完成，而不是通过网络完成，并且备份磁带应该是物理上安全的。
+我们建议安全机器的备份排除keytab文件（[DEFKTNAME](http://web.mit.edu/kerberos/krb5-latest/doc/mitK5defaults.html#paths)）。如果不可能，备份应至少在本地完成，而不是通过网络完成，并且备份磁带应该是物理上安全的。
 
 keytab文件和由root运行的任何程序（包括Kerberos V5二进制文件）应保存在本地磁盘上。keytab文件只能由root读取。
 
 ## 1.2 配置文件
 
-Kerberos使用配置文件来允许管理员在每个机器的基础上指定设置。 [*krb5.conf*](http://web.mit.edu/kerberos/krb5-latest/doc/admin/conf_files/krb5_conf.html#krb5-conf-5)适用于使用Kerboros库的所有应用程序，在客户端和服务器上。对于KDC特定应用程序，可以在[*kdc.conf中*](http://web.mit.edu/kerberos/krb5-latest/doc/admin/conf_files/kdc_conf.html#kdc-conf-5)指定其他设置 ; 这两个文件被合并到直接访问KDC数据库的应用程序使用的配置文件。 [*kadm5.acl*](http://web.mit.edu/kerberos/krb5-latest/doc/admin/conf_files/kadm5_acl.html#kadm5-acl-5) 也仅用于KDC，它控制修改KDC数据库的权限。
+Kerberos使用配置文件来允许管理员在每个机器的基础上指定设置。 [krb5.conf](http://web.mit.edu/kerberos/krb5-latest/doc/admin/conf_files/krb5_conf.html#krb5-conf-5)适用于使用Kerboros库的所有应用程序，在客户端和服务器上。对于KDC特定应用程序，可以在[kdc.conf中](http://web.mit.edu/kerberos/krb5-latest/doc/admin/conf_files/kdc_conf.html#kdc-conf-5)指定其他设置 ; 这两个文件被合并到直接访问KDC数据库的应用程序使用的配置文件。 [kadm5.acl](http://web.mit.edu/kerberos/krb5-latest/doc/admin/conf_files/kadm5_acl.html#kadm5-acl-5) 也仅用于KDC，它控制修改KDC数据库的权限。
 
 ### 1.2.1 krb5.conf
 
@@ -492,20 +492,20 @@ krb5.conf文件可以指定从可加载模块而不是文件本身获取配置�
 module MODULEPATH:RESIDUAL
 ```
 
-*MODULEPATH*可能相对于krb5安装的库路径，也可能是绝对路径。 在初始化时间*内向*模块提供*RESIDUAL*。如果krb5.conf使用模块指令，那么[*kdc.conf*](http://web.mit.edu/kerberos/krb5-latest/doc/admin/conf_files/kdc_conf.html#kdc-conf-5)也应该使用一个。
+*MODULEPATH*可能相对于krb5安装的库路径，也可能是绝对路径。 在初始化时间*内向*模块提供*RESIDUAL*。如果krb5.conf使用模块指令，那么[kdc.conf](http://web.mit.edu/kerberos/krb5-latest/doc/admin/conf_files/kdc_conf.html#kdc-conf-5)也应该使用一个。
 
 #### 1.2.1.2部分
 
 |                                          |                        |
 | ---------------------------------------- | ---------------------- |
 | [libdefaults](http://web.mit.edu/kerberos/krb5-latest/doc/admin/conf_files/krb5_conf.html#libdefaults) | Kerberos V5库使用的设置      |
-| [realms*](http://web.mit.edu/kerberos/krb5-latest/doc/admin/conf_files/krb5_conf.html#realms) | 领域特定的联系信息和设置           |
+| [realms](http://web.mit.edu/kerberos/krb5-latest/doc/admin/conf_files/krb5_conf.html#realms) | 领域特定的联系信息和设置           |
 | [domain_realm](http://web.mit.edu/kerberos/krb5-latest/doc/admin/conf_files/krb5_conf.html#domain-realm) | 将服务器主机名映射到Kerberos领域   |
 | [capaths](http://web.mit.edu/kerberos/krb5-latest/doc/admin/conf_files/krb5_conf.html#capaths) | 非层次交叉领域的认证路径           |
 | [appdefaults](http://web.mit.edu/kerberos/krb5-latest/doc/admin/conf_files/krb5_conf.html#appdefaults) | 某些Kerberos V5应用程序使用的设置 |
 | [plugins](http://web.mit.edu/kerberos/krb5-latest/doc/admin/conf_files/krb5_conf.html#plugins) | 控制插件模块注册               |
 
-另外，krb5.conf可能包含 [*kdc.conf*](http://web.mit.edu/kerberos/krb5-latest/doc/admin/conf_files/kdc_conf.html#kdc-conf-5) 中描述的任何关系 ，但不是推荐的做法。
+另外，krb5.conf可能包含 [kdc.conf](http://web.mit.edu/kerberos/krb5-latest/doc/admin/conf_files/kdc_conf.html#kdc-conf-5) 中描述的任何关系 ，但不是推荐的做法。
 
 ##### [libdefaults]
 
@@ -513,7 +513,7 @@ libdefaults部分可能包含以下任何关系：
 
 - **allow_weak_crypto**
 
-如果这个标志被设置为false，那么弱加密类型（如指出的[*加密类型*](http://web.mit.edu/kerberos/krb5-latest/doc/admin/conf_files/kdc_conf.html#encryption-types)在[*kdc.conf中*](http://web.mit.edu/kerberos/krb5-latest/doc/admin/conf_files/kdc_conf.html#kdc-conf-5)）将被过滤掉的名单**default_tgs_enctypes**， **default_tkt_enctypes**和**permitted_enctypes**。此标记的默认值为false，这可能会导致现有Kerberos基础结构中的身份验证失败，该基础架构不支持强密码。受影响环境中的用户应将此标记设置为true，直到其基础架构采用更强的密码。
+如果这个标志被设置为false，那么弱加密类型（如指出的[加密类型](http://web.mit.edu/kerberos/krb5-latest/doc/admin/conf_files/kdc_conf.html#encryption-types)在[kdc.conf中](http://web.mit.edu/kerberos/krb5-latest/doc/admin/conf_files/kdc_conf.html#kdc-conf-5)）将被过滤掉的名单**default_tgs_enctypes**， **default_tkt_enctypes**和**permitted_enctypes**。此标记的默认值为false，这可能会导致现有Kerberos基础结构中的身份验证失败，该基础架构不支持强密码。受影响环境中的用户应将此标记设置为true，直到其基础架构采用更强的密码。
 
 - **ap_req_checksum_type**
 
@@ -525,7 +525,7 @@ libdefaults部分可能包含以下任何关系：
 
 - **ccache_type**
 
-此参数确定由[*kinit*](http://web.mit.edu/kerberos/krb5-latest/doc/user/user_commands/kinit.html#kinit-1)或其他程序创建的凭据高速缓存类型的格式。默认值为4，表示最新的格式。可以使用较小的值与与同一主机上的凭据缓存交互的非常旧的Kerberos实现的兼容性。
+此参数确定由[kinit](http://web.mit.edu/kerberos/krb5-latest/doc/user/user_commands/kinit.html#kinit-1)或其他程序创建的凭据高速缓存类型的格式。默认值为4，表示最新的格式。可以使用较小的值与与同一主机上的凭据缓存交互的非常旧的Kerberos实现的兼容性。
 
 - **clockskew**
 
@@ -535,23 +535,23 @@ libdefaults部分可能包含以下任何关系：
 
 - **default_ccache_name**
 
-此关系指定默认凭据缓存的名称。默认值为[*DEFCCNAME*](http://web.mit.edu/kerberos/krb5-latest/doc/mitK5defaults.html#paths)。此关系需要参数扩展（见下文）。新版本1.11。
+此关系指定默认凭据缓存的名称。默认值为[DEFCCNAME](http://web.mit.edu/kerberos/krb5-latest/doc/mitK5defaults.html#paths)。此关系需要参数扩展（见下文）。新版本1.11。
 
 - **default_client_keytab_name**
 
-此关系指定用于获取客户端凭据的默认密钥表的名称。默认值为[*DEFCKTNAME*](http://web.mit.edu/kerberos/krb5-latest/doc/mitK5defaults.html#paths)。此关系需要参数扩展（见下文）。新版本1.11。
+此关系指定用于获取客户端凭据的默认密钥表的名称。默认值为[DEFCKTNAME](http://web.mit.edu/kerberos/krb5-latest/doc/mitK5defaults.html#paths)。此关系需要参数扩展（见下文）。新版本1.11。
 
 - **default_keytab_name**
 
-此关系指定了应用程序服务器（如sshd）使用的默认密钥表名称。默认值为[*DEFKTNAME*](http://web.mit.edu/kerberos/krb5-latest/doc/mitK5defaults.html#paths)。此关系需要参数扩展（见下文）。
+此关系指定了应用程序服务器（如sshd）使用的默认密钥表名称。默认值为[DEFKTNAME](http://web.mit.edu/kerberos/krb5-latest/doc/mitK5defaults.html#paths)。此关系需要参数扩展（见下文）。
 
 - **default_realm**
 
-标识客户端的默认Kerberos领域。将其值设置为您的Kerberos领域。如果未设置此值，则在调用诸如[*kinit的*](http://web.mit.edu/kerberos/krb5-latest/doc/user/user_commands/kinit.html#kinit-1)程序时，必须为每个Kerberos主体指定一个域。
+标识客户端的默认Kerberos领域。将其值设置为您的Kerberos领域。如果未设置此值，则在调用诸如[kinit的](http://web.mit.edu/kerberos/krb5-latest/doc/user/user_commands/kinit.html#kinit-1)程序时，必须为每个Kerberos主体指定一个域。
 
 - **default_tgs_enctypes**
 
-标识在制作TGS-REQ时客户端应该请求的会话密钥加密类型的支持列表，按照从最高到最低的优先顺序。列表可以用逗号或空格分隔。见[*加密类型*](http://web.mit.edu/kerberos/krb5-latest/doc/admin/conf_files/kdc_conf.html#encryption-types)在 [*kdc.conf中*](http://web.mit.edu/kerberos/krb5-latest/doc/admin/conf_files/kdc_conf.html#kdc-conf-5)对这个标签接收到的值的列表。默认值为`aes256-cts-hmac-sha1-96 aes128-cts-hmac-sha1-96 aes128-cts-hmac-sha256-128 aes256-cts-hmac-sha384-192 des3-cbc-sha1 arcfour-hmac-md5 山茶花256 -cts-cmac camellia128 -cts-cmac des-cbc-crc des-cbc-md5 des-cbc-md4`，但是单DES加密类型将从该列表中隐式删除，如果 **allow_weak_crypto**为false。
+标识在制作TGS-REQ时客户端应该请求的会话密钥加密类型的支持列表，按照从最高到最低的优先顺序。列表可以用逗号或空格分隔。见[加密类型](http://web.mit.edu/kerberos/krb5-latest/doc/admin/conf_files/kdc_conf.html#encryption-types)在 [kdc.conf中](http://web.mit.edu/kerberos/krb5-latest/doc/admin/conf_files/kdc_conf.html#kdc-conf-5)对这个标签接收到的值的列表。默认值为`aes256-cts-hmac-sha1-96 aes128-cts-hmac-sha1-96 aes128-cts-hmac-sha256-128 aes256-cts-hmac-sha384-192 des3-cbc-sha1 arcfour-hmac-md5 山茶花256 -cts-cmac camellia128 -cts-cmac des-cbc-crc des-cbc-md5 des-cbc-md4`，但是单DES加密类型将从该列表中隐式删除，如果 **allow_weak_crypto**为false。
 
 除非具体的向后兼容性目的要求，否则不要设置此; 这种设置的陈旧值可以防止客户端在升级库时利用新的更强的enctypes。
 
@@ -593,7 +593,7 @@ libdefaults部分可能包含以下任何关系：
 
 - **k5login_authoritative**
 
-如果此标志为真，则如果 存在[*.k5login*](http://web.mit.edu/kerberos/krb5-latest/doc/user/user_config/k5login.html#k5login-5)文件，则主体必须列在本地用户的k5login文件中才能被授予登录访问权限。如果此标志为假，即使存在k5login文件但未列出主体，仍可通过其他机制授予委托人登录访问权限。默认值为true。
+如果此标志为真，则如果 存在[.k5login](http://web.mit.edu/kerberos/krb5-latest/doc/user/user_config/k5login.html#k5login-5)文件，则主体必须列在本地用户的k5login文件中才能被授予登录访问权限。如果此标志为假，即使存在k5login文件但未列出主体，仍可通过其他机制授予委托人登录访问权限。默认值为true。
 
 - **k5login_directory**
 
@@ -672,7 +672,7 @@ libdefaults部分可能包含以下任何关系：
 - **renew_lifetime**
 
 
-（[*持续时间*](http://web.mit.edu/kerberos/krb5-latest/doc/basic/date_format.html#duration)字符串）设置初始票据请求的默认可更新生命周期。默认值为0。
+（[持续时间](http://web.mit.edu/kerberos/krb5-latest/doc/basic/date_format.html#duration)字符串）设置初始票据请求的默认可更新生命周期。默认值为0。
 
 - **safe_checksum_type**
 
@@ -682,7 +682,7 @@ libdefaults部分可能包含以下任何关系：
 - **ticket_lifetime**
 
 
-（[*持续时间*](http://web.mit.edu/kerberos/krb5-latest/doc/basic/date_format.html#duration)字符串）设置初始票据请求的默认生命周期。默认值为1天。
+（[持续时间](http://web.mit.edu/kerberos/krb5-latest/doc/basic/date_format.html#duration)字符串）设置初始票据请求的默认生命周期。默认值为1天。
 
 - **udp_preference_limit**
 
@@ -703,7 +703,7 @@ libdefaults部分可能包含以下任何关系：
 - **admin_server**
 
 
-标识管理服务器正在运行的主机。通常，这是主Kerberos服务器。为了与 领域的[*kadmind*](http://web.mit.edu/kerberos/krb5-latest/doc/admin/admin_commands/kadmind.html#kadmind-8)服务器进行通信，必须为此标签赋予一个值。
+标识管理服务器正在运行的主机。通常，这是主Kerberos服务器。为了与 领域的[kadmind](http://web.mit.edu/kerberos/krb5-latest/doc/admin/admin_commands/kadmind.html#kadmind-8)服务器进行通信，必须为此标签赋予一个值。
 
 - **auth_to_local**
 
@@ -714,7 +714,7 @@ libdefaults部分可能包含以下任何关系：
 
 ​	本地名称将从制定*EXP*。
 
-​	对于格式*EXP*是**[ ***Ñ ***：***字符串***（***正则表达式***）S / ***图案***/ ***更换***/克**。整数*n*表示目标主体应具有多少个组件。如果此匹配，则一个字符串将被从形成*的字符串*，替换主要为境界`$ 0`和*Ñ* “日本金的成分 `$ N`（例如，如果主要是`输入johndoe /管理员`然后 `[2：$ 2 $ 1foo ]`将导致字符串 `adminjohndoefoo`）。如果此字符串与*regexp*匹配**，那么`s // [g]`替换命令将在字符串上运行。可选**克**将导致取代是全球性的过*串*，而不是在只更换第一匹配*串*。
+​	对于格式*EXP*是*[ ***Ñ ***：***字符串***（***正则表达式***）S / ***图案***/ ***更换***/克**。整数*n*表示目标主体应具有多少个组件。如果此匹配，则一个字符串将被从形成*的字符串*，替换主要为境界`$ 0`和*Ñ* “日本金的成分 `$ N`（例如，如果主要是`输入johndoe /管理员`然后 `[2：$ 2 $ 1foo ]`将导致字符串 `adminjohndoefoo`）。如果此字符串与*regexp*匹配**，那么`s // [g]`替换命令将在字符串上运行。可选**克**将导致取代是全球性的过*串*，而不是在只更换第一匹配*串*。
 
 ​	**DEFAULT**
 
@@ -963,15 +963,15 @@ libdefaults部分可能包含以下任何关系：
 
 ### 1.2.2 kdc.conf
 
-kdc.conf文件补充了通常仅在KDC上使用的程序的[*krb5.conf*](http://web.mit.edu/kerberos/krb5-latest/doc/admin/conf_files/krb5_conf.html#krb5-conf-5)，例如[*krb5kdc*](http://web.mit.edu/kerberos/krb5-latest/doc/admin/admin_commands/krb5kdc.html#krb5kdc-8)和 [*kadmind*](http://web.mit.edu/kerberos/krb5-latest/doc/admin/admin_commands/kadmind.html#kadmind-8)守护程序以及[*kdb5_util*](http://web.mit.edu/kerberos/krb5-latest/doc/admin/admin_commands/kdb5_util.html#kdb5-util-8)程序。这里记录的关系也可以在krb5.conf中指定; 对于所提到的KDC程序，krb5.conf和kdc.conf将被合并到单个配置文件中。
+kdc.conf文件补充了通常仅在KDC上使用的程序的[krb5.conf](http://web.mit.edu/kerberos/krb5-latest/doc/admin/conf_files/krb5_conf.html#krb5-conf-5)，例如[krb5kdc](http://web.mit.edu/kerberos/krb5-latest/doc/admin/admin_commands/krb5kdc.html#krb5kdc-8)和 [kadmind](http://web.mit.edu/kerberos/krb5-latest/doc/admin/admin_commands/kadmind.html#kadmind-8)守护程序以及[kdb5_util](http://web.mit.edu/kerberos/krb5-latest/doc/admin/admin_commands/kdb5_util.html#kdb5-util-8)程序。这里记录的关系也可以在krb5.conf中指定; 对于所提到的KDC程序，krb5.conf和kdc.conf将被合并到单个配置文件中。
 
-通常，kdc.conf文件位于KDC状态目录 *[LOCALSTATEDIR ](http://web.mit.edu/kerberos/krb5-latest/doc/mitK5defaults.html#paths)* `/ krb5kdc中`。您可以通过设置环境变量**KRB5_KDC_PROFILE**来覆盖默认位置。
+通常，kdc.conf文件位于KDC状态目录 [LOCALSTATEDIR ](http://web.mit.edu/kerberos/krb5-latest/doc/mitK5defaults.html#paths)* `/ krb5kdc中`。您可以通过设置环境变量**KRB5_KDC_PROFILE**来覆盖默认位置。
 
 请注意，您需要重新启动KDC守护程序，以使任何配置更改生效。
 
 #### 1.2.2.1 结构
 
-kdc.conf文件的设置格式与[*krb5.conf*](http://web.mit.edu/kerberos/krb5-latest/doc/admin/conf_files/krb5_conf.html#krb5-conf-5)文件相同 。
+kdc.conf文件的设置格式与[krb5.conf](http://web.mit.edu/kerberos/krb5-latest/doc/admin/conf_files/krb5_conf.html#krb5-conf-5)文件相同 。
 
 #### 1.2.2.2 部分
 
@@ -979,16 +979,16 @@ kdc.conf文件可能包含以下部分：
 
 |                                          |                         |
 | ---------------------------------------- | ----------------------- |
-| [*kdcdefaults*](http://web.mit.edu/kerberos/krb5-latest/doc/admin/conf_files/kdc_conf.html#kdcdefaults) | KDC行为的默认值               |
-| [*realms*](http://web.mit.edu/kerberos/krb5-latest/doc/admin/conf_files/kdc_conf.html#kdc-realms) | 领域特定的数据库配置和设置           |
-| [*dbdefaults*](http://web.mit.edu/kerberos/krb5-latest/doc/admin/conf_files/kdc_conf.html#dbdefaults) | 默认数据库设置                 |
-| [*dbmodules*](http://web.mit.edu/kerberos/krb5-latest/doc/admin/conf_files/kdc_conf.html#dbmodules) | 每数据库设置                  |
-| [*logging*](http://web.mit.edu/kerberos/krb5-latest/doc/admin/conf_files/kdc_conf.html#logging) | 控制Kerberos守护程序执行日志记录的方式 |
+| [kdcdefaults](http://web.mit.edu/kerberos/krb5-latest/doc/admin/conf_files/kdc_conf.html#kdcdefaults) | KDC行为的默认值               |
+| [realms](http://web.mit.edu/kerberos/krb5-latest/doc/admin/conf_files/kdc_conf.html#kdc-realms) | 领域特定的数据库配置和设置           |
+| [dbdefaults](http://web.mit.edu/kerberos/krb5-latest/doc/admin/conf_files/kdc_conf.html#dbdefaults) | 默认数据库设置                 |
+| [dbmodules](http://web.mit.edu/kerberos/krb5-latest/doc/admin/conf_files/kdc_conf.html#dbmodules) | 每数据库设置                  |
+| [logging](http://web.mit.edu/kerberos/krb5-latest/doc/admin/conf_files/kdc_conf.html#logging) | 控制Kerberos守护程序执行日志记录的方式 |
 
 
 ##### [kdcdefaults]
 
-除了两个例外，[kdcdefaults]部分中的关系指定了领域变量的默认值，如果[realms]部分不包含标签的关系，则使用它们。有关这些关系的定义，请参阅 [*领域*](http://web.mit.edu/kerberos/krb5-latest/doc/admin/conf_files/kdc_conf.html#kdc-realms) 部分。
+除了两个例外，[kdcdefaults]部分中的关系指定了领域变量的默认值，如果[realms]部分不包含标签的关系，则使用它们。有关这些关系的定义，请参阅 [领域](http://web.mit.edu/kerberos/krb5-latest/doc/admin/conf_files/kdc_conf.html#kdc-realms) 部分。
 
 - **host_based_services**
 - **kdc_listen**
@@ -1023,19 +1023,19 @@ kdc.conf文件可能包含以下部分：
 
 - **acl_file**
 
-（String。）[*kadmind*](http://web.mit.edu/kerberos/krb5-latest/doc/admin/admin_commands/kadmind.html#kadmind-8)用于确定允许哪些主体在Kerberos数据库中有哪些权限的访问控制列表文件的位置 。默认值为 *[LOCALSTATEDIR ](http://web.mit.edu/kerberos/krb5-latest/doc/mitK5defaults.html#paths)* `/krb5kdc/kadm5.acl`。有关Kerberos ACL文件的更多信息，请参阅[*kadm5.acl*](http://web.mit.edu/kerberos/krb5-latest/doc/admin/conf_files/kadm5_acl.html#kadm5-acl-5)。
+（String。）[kadmind](http://web.mit.edu/kerberos/krb5-latest/doc/admin/admin_commands/kadmind.html#kadmind-8)用于确定允许哪些主体在Kerberos数据库中有哪些权限的访问控制列表文件的位置 。默认值为 [LOCALSTATEDIR ](http://web.mit.edu/kerberos/krb5-latest/doc/mitK5defaults.html#paths)* `/krb5kdc/kadm5.acl`。有关Kerberos ACL文件的更多信息，请参阅[kadm5.acl](http://web.mit.edu/kerberos/krb5-latest/doc/admin/conf_files/kadm5_acl.html#kadm5-acl-5)。
 
 - **database_module**
 
-（String。）此关系指示可加载数据库使用的数据库特定参数的[*dbmodules*](http://web.mit.edu/kerberos/krb5-latest/doc/admin/conf_files/kdc_conf.html#dbmodules)下的配置部分的名称。默认值是域名。如果此配置部分不存在，则将为所有数据库参数使用默认值。
+（String。）此关系指示可加载数据库使用的数据库特定参数的[dbmodules](http://web.mit.edu/kerberos/krb5-latest/doc/admin/conf_files/kdc_conf.html#dbmodules)下的配置部分的名称。默认值是域名。如果此配置部分不存在，则将为所有数据库参数使用默认值。
 
 - **database_name**
 
-（String，deprecated。）此关系指定了该领域的Kerberos数据库的位置，如果正在使用DB2模块，并且[*dbmodules*](http://web.mit.edu/kerberos/krb5-latest/doc/admin/conf_files/kdc_conf.html#dbmodules)配置部分未指定数据库名称。默认值为*[LOCALSTATEDIR ](http://web.mit.edu/kerberos/krb5-latest/doc/mitK5defaults.html#paths)* `/krb5kdc/principal`。
+（String，deprecated。）此关系指定了该领域的Kerberos数据库的位置，如果正在使用DB2模块，并且[dbmodules](http://web.mit.edu/kerberos/krb5-latest/doc/admin/conf_files/kdc_conf.html#dbmodules)配置部分未指定数据库名称。默认值为[LOCALSTATEDIR ](http://web.mit.edu/kerberos/krb5-latest/doc/mitK5defaults.html#paths)* `/krb5kdc/principal`。
 
 - **default_principal_expiration**
 
-（[*绝对时间*](http://web.mit.edu/kerberos/krb5-latest/doc/basic/date_format.html#abstime)字符串。）指定在此领域中创建的主体的默认有效期。默认值为0，表示没有到期日。
+（[绝对时间](http://web.mit.edu/kerberos/krb5-latest/doc/basic/date_format.html#abstime)字符串。）指定在此领域中创建的主体的默认有效期。默认值为0，表示没有到期日。
 
 - **default_principal_flags**
 
@@ -1125,11 +1125,11 @@ kdc.conf文件可能包含以下部分：
 
 - **iprop_listen**
 
-（Whitespace-或逗号分隔的列表。）指定iprop RPC监听地址和/或端口的[*kadmind的*](http://web.mit.edu/kerberos/krb5-latest/doc/admin/admin_commands/kadmind.html#kadmind-8)守护进程。每个条目可能是一个接口地址，一个端口号，或一个以冒号分隔的地址和端口号。如果地址包含冒号，请将其括在方括号中。如果没有指定地址，则使用通配符地址。如果kadmind无法绑定到任何指定的地址，它将无法启动。默认值（当**iprop_enable**为true时）将绑定到**iprop_port中**指定的端口上的通配符地址。新版本1.15。
+（Whitespace-或逗号分隔的列表。）指定iprop RPC监听地址和/或端口的[kadmind的](http://web.mit.edu/kerberos/krb5-latest/doc/admin/admin_commands/kadmind.html#kadmind-8)守护进程。每个条目可能是一个接口地址，一个端口号，或一个以冒号分隔的地址和端口号。如果地址包含冒号，请将其括在方括号中。如果没有指定地址，则使用通配符地址。如果kadmind无法绑定到任何指定的地址，它将无法启动。默认值（当**iprop_enable**为true时）将绑定到**iprop_port中**指定的端口上的通配符地址。新版本1.15。
 
 - **iprop_port**
 
-（端口号。）指定用于增量传播的端口号。当**iprop_enable**为true时，从配置文件需要此关系，主配置文件中需要此关系或**iprop_listen**，因为没有默认端口号。**iprop_listen**条目中指定的端口号将覆盖[*kadmind*](http://web.mit.edu/kerberos/krb5-latest/doc/admin/admin_commands/kadmind.html#kadmind-8)守护程序的此端口号。
+（端口号。）指定用于增量传播的端口号。当**iprop_enable**为true时，从配置文件需要此关系，主配置文件中需要此关系或**iprop_listen**，因为没有默认端口号。**iprop_listen**条目中指定的端口号将覆盖[kadmind](http://web.mit.edu/kerberos/krb5-latest/doc/admin/admin_commands/kadmind.html#kadmind-8)守护程序的此端口号。
 
 - **iprop_resync_timeout**
 
@@ -1141,39 +1141,39 @@ kdc.conf文件可能包含以下部分：
 
 - **kadmind_listen**
 
-（空格或逗号分隔的列表。）指定[*kadmind*](http://web.mit.edu/kerberos/krb5-latest/doc/admin/admin_commands/kadmind.html#kadmind-8)守护程序的kadmin RPC侦听地址和/或端口。每个条目可能是一个接口地址，一个端口号，或一个以冒号分隔的地址和端口号。如果地址包含冒号，请将其括在方括号中。如果没有指定地址，则使用通配符地址。如果kadmind无法绑定到任何指定的地址，它将无法启动。默认值是绑定到**kadmind_port**或标准kadmin端口（749）中指定的端口上的通配符地址。新版本1.15。
+（空格或逗号分隔的列表。）指定[kadmind](http://web.mit.edu/kerberos/krb5-latest/doc/admin/admin_commands/kadmind.html#kadmind-8)守护程序的kadmin RPC侦听地址和/或端口。每个条目可能是一个接口地址，一个端口号，或一个以冒号分隔的地址和端口号。如果地址包含冒号，请将其括在方括号中。如果没有指定地址，则使用通配符地址。如果kadmind无法绑定到任何指定的地址，它将无法启动。默认值是绑定到**kadmind_port**或标准kadmin端口（749）中指定的端口上的通配符地址。新版本1.15。
 
 - **kadmind_port**
 
-（端口号。）指定[*kadmind*](http://web.mit.edu/kerberos/krb5-latest/doc/admin/admin_commands/kadmind.html#kadmind-8) 守护程序侦听此域的端口。在**kadmind_listen**条目中指定的端口号 将覆盖此端口号。kadmind的分配端口是749，默认情况下使用。
+（端口号。）指定[kadmind](http://web.mit.edu/kerberos/krb5-latest/doc/admin/admin_commands/kadmind.html#kadmind-8) 守护程序侦听此域的端口。在**kadmind_listen**条目中指定的端口号 将覆盖此端口号。kadmind的分配端口是749，默认情况下使用。
 
 - **key_stash_file**
 
-（String。）指定存储主密钥的位置（通过kdb5_util隐藏）。默认值为[*LOCALSTATEDIR *](http://web.mit.edu/kerberos/krb5-latest/doc/mitK5defaults.html#paths)`/ krb5kdc/.k5.REALM`，其中*REALM*是Kerberos *域*。
+（String。）指定存储主密钥的位置（通过kdb5_util隐藏）。默认值为[LOCALSTATEDIR](http://web.mit.edu/kerberos/krb5-latest/doc/mitK5defaults.html#paths)`/ krb5kdc/.k5.REALM`，其中*REALM*是Kerberos *域*。
 
 - **kdc_listen**
 
-（空格或逗号分隔的列表。）指定[*krb5kdc*](http://web.mit.edu/kerberos/krb5-latest/doc/admin/admin_commands/krb5kdc.html#krb5kdc-8)守护程序的UDP侦听地址和/或端口。每个条目可能是一个接口地址，一个端口号，或一个以冒号分隔的地址和端口号。如果地址包含冒号，请将其括在方括号中。如果没有指定地址，则使用通配符地址。如果没有指定端口，则使用标准端口（88）。如果KDC守护程序无法绑定到任何指定的地址，将无法启动。默认是绑定到标准端口上的通配符地址。新版本1.15。
+（空格或逗号分隔的列表。）指定[krb5kdc](http://web.mit.edu/kerberos/krb5-latest/doc/admin/admin_commands/krb5kdc.html#krb5kdc-8)守护程序的UDP侦听地址和/或端口。每个条目可能是一个接口地址，一个端口号，或一个以冒号分隔的地址和端口号。如果地址包含冒号，请将其括在方括号中。如果没有指定地址，则使用通配符地址。如果没有指定端口，则使用标准端口（88）。如果KDC守护程序无法绑定到任何指定的地址，将无法启动。默认是绑定到标准端口上的通配符地址。新版本1.15。
 
 - **kdc_ports**
 
-（不推荐使用空格或逗号分隔的列表）。在释放1.15之前，此关系列出了[*krb5kdc*](http://web.mit.edu/kerberos/krb5-latest/doc/admin/admin_commands/krb5kdc.html#krb5kdc-8)守护程序侦听UDP请求的端口 。在版本1.15及更高版本中， 如果没有定义该关系，它与**kdc_listen**具有相同的含义。
+（不推荐使用空格或逗号分隔的列表）。在释放1.15之前，此关系列出了[krb5kdc](http://web.mit.edu/kerberos/krb5-latest/doc/admin/admin_commands/krb5kdc.html#krb5kdc-8)守护程序侦听UDP请求的端口 。在版本1.15及更高版本中， 如果没有定义该关系，它与**kdc_listen**具有相同的含义。
 
 - **kdc_tcp_listen**
 
-（空格或逗号分隔的列表。）指定[*krb5kdc*](http://web.mit.edu/kerberos/krb5-latest/doc/admin/admin_commands/krb5kdc.html#krb5kdc-8)守护程序的TCP侦听地址和/或端口。每个条目可能是一个接口地址，一个端口号，或一个以冒号分隔的地址和端口号。如果地址包含冒号，请将其括在方括号中。如果没有指定地址，则使用通配符地址。如果没有指定端口，则使用标准端口（88）。要禁用TCP侦听，请使用`kdc_tcp_listen = “”`将此关系设置为空字符串。如果KDC守护程序无法绑定到任何指定的地址，将无法启动。默认是绑定到标准端口上的通配符地址。新版本1.15。
+（空格或逗号分隔的列表。）指定[krb5kdc](http://web.mit.edu/kerberos/krb5-latest/doc/admin/admin_commands/krb5kdc.html#krb5kdc-8)守护程序的TCP侦听地址和/或端口。每个条目可能是一个接口地址，一个端口号，或一个以冒号分隔的地址和端口号。如果地址包含冒号，请将其括在方括号中。如果没有指定地址，则使用通配符地址。如果没有指定端口，则使用标准端口（88）。要禁用TCP侦听，请使用`kdc_tcp_listen = “”`将此关系设置为空字符串。如果KDC守护程序无法绑定到任何指定的地址，将无法启动。默认是绑定到标准端口上的通配符地址。新版本1.15。
 
 - **kdc_tcp_ports**
 
-（不推荐使用空格或逗号分隔的列表）。在释放1.15之前，此关系列出了[*krb5kdc*](http://web.mit.edu/kerberos/krb5-latest/doc/admin/admin_commands/krb5kdc.html#krb5kdc-8)守护程序侦听UDP请求的端口 。在版本1.15及更高版本中，如果没有定义该关系，则与**kdc_tcp_listen**具有相同的含义。
+（不推荐使用空格或逗号分隔的列表）。在释放1.15之前，此关系列出了[krb5kdc](http://web.mit.edu/kerberos/krb5-latest/doc/admin/admin_commands/krb5kdc.html#krb5kdc-8)守护程序侦听UDP请求的端口 。在版本1.15及更高版本中，如果没有定义该关系，则与**kdc_tcp_listen**具有相同的含义。
 
 - **kpasswd_listen**
 
-（逗号分隔列表。）指定[*kadmind*](http://web.mit.edu/kerberos/krb5-latest/doc/admin/admin_commands/kadmind.html#kadmind-8)守护程序的kpasswd侦听地址和/或端口。每个条目可能是一个接口地址，一个端口号，或一个以冒号分隔的地址和端口号。如果地址包含冒号，请将其括在方括号中。如果没有指定地址，则使用通配符地址。如果kadmind无法绑定到任何指定的地址，它将无法启动。默认值是绑定到**kpasswd_port中**指定的端口或标准kpasswd端口（464）上的通配符地址。新版本1.15。
+（逗号分隔列表。）指定[kadmind](http://web.mit.edu/kerberos/krb5-latest/doc/admin/admin_commands/kadmind.html#kadmind-8)守护程序的kpasswd侦听地址和/或端口。每个条目可能是一个接口地址，一个端口号，或一个以冒号分隔的地址和端口号。如果地址包含冒号，请将其括在方括号中。如果没有指定地址，则使用通配符地址。如果kadmind无法绑定到任何指定的地址，它将无法启动。默认值是绑定到**kpasswd_port中**指定的端口或标准kpasswd端口（464）上的通配符地址。新版本1.15。
 
 - **kpasswd_port**
 
-（端口号。）指定[*kadmind*](http://web.mit.edu/kerberos/krb5-latest/doc/admin/admin_commands/kadmind.html#kadmind-8) 守护程序侦听此域的密码更改请求的端口。在**kpasswd_listen**条目中指定的端口号将覆盖此端口号。密码更改请求的分配端口为464，默认使用。
+（端口号。）指定[kadmind](http://web.mit.edu/kerberos/krb5-latest/doc/admin/admin_commands/kadmind.html#kadmind-8) 守护程序侦听此域的密码更改请求的端口。在**kpasswd_listen**条目中指定的端口号将覆盖此端口号。密码更改请求的分配端口为464，默认使用。
 
 - **master_key_name**
 
@@ -1181,23 +1181,23 @@ kdc.conf文件可能包含以下部分：
 
 - **master_key_type**
 
-（键类型字符串）指定主键的键类型。其默认值为`aes256-cts-hmac-sha1-96`。有关所有可能值的列表，请参阅[*加密类型*](http://web.mit.edu/kerberos/krb5-latest/doc/admin/conf_files/kdc_conf.html#encryption-types)。
+（键类型字符串）指定主键的键类型。其默认值为`aes256-cts-hmac-sha1-96`。有关所有可能值的列表，请参阅[加密类型](http://web.mit.edu/kerberos/krb5-latest/doc/admin/conf_files/kdc_conf.html#encryption-types)。
 
 - **max_life**
 
-（[*持续时间*](http://web.mit.edu/kerberos/krb5-latest/doc/basic/date_format.html#duration)字符串）指定票证在该领域中有效的最长时间段。默认值为24小时。
+（[持续时间](http://web.mit.edu/kerberos/krb5-latest/doc/basic/date_format.html#duration)字符串）指定票证在该领域中有效的最长时间段。默认值为24小时。
 
 - **max_renewable_life**
 
-[*持续时间*](http://web.mit.edu/kerberos/krb5-latest/doc/basic/date_format.html#duration)字符串）指定在此领域可以更新有效票证的最长时间段。默认值为0。
+[持续时间](http://web.mit.edu/kerberos/krb5-latest/doc/basic/date_format.html#duration)字符串）指定在此领域可以更新有效票证的最长时间段。默认值为0。
 
 - **no_host_referral**
 
-（布尔值）。如果设置为true，则KDC将假定服务主体支持des-cbc-crc以进行会话密钥协商。如果**allow_weak_crypto**在[*libdefaults*](http://web.mit.edu/kerberos/krb5-latest/doc/admin/conf_files/krb5_conf.html#libdefaults)是假的，或者如果DES-CBC-CRC没有被允许的加密类型，则该变量没有效果。默认为true。新版本1.11。
+（布尔值）。如果设置为true，则KDC将假定服务主体支持des-cbc-crc以进行会话密钥协商。如果**allow_weak_crypto**在[libdefaults](http://web.mit.edu/kerberos/krb5-latest/doc/admin/conf_files/krb5_conf.html#libdefaults)是假的，或者如果DES-CBC-CRC没有被允许的加密类型，则该变量没有效果。默认为true。新版本1.11。
 
 - **reject_bad_transit**
 
-（布尔值）如果设置为true，KDC将根据从其[*krb5.conf*](http://web.mit.edu/kerberos/krb5-latest/doc/admin/conf_files/krb5_conf.html#krb5-conf-5)文件的领域名称和capaths部分计算的传输路径，检查跨领域门票的转换范围 列表; 如果要颁发的票证中的路径包含不在计算路径中的任何领域，则不会发出票证，并将错误返回给客户端。如果这个值设置为false，那么这样的票据将会被发出，并且将被留给应用服务器来验证领域的传输路径。
+（布尔值）如果设置为true，KDC将根据从其[krb5.conf](http://web.mit.edu/kerberos/krb5-latest/doc/admin/conf_files/krb5_conf.html#krb5-conf-5)文件的领域名称和capaths部分计算的传输路径，检查跨领域门票的转换范围 列表; 如果要颁发的票证中的路径包含不在计算路径中的任何领域，则不会发出票证，并将错误返回给客户端。如果这个值设置为false，那么这样的票据将会被发出，并且将被留给应用服务器来验证领域的传输路径。
 
 如果在传入请求中设置了禁用转移检查标志，则完全不执行此检查。使用 **reject_bad_transit**选项将导致这样的票据请求总是被拒绝。
 
@@ -1211,11 +1211,11 @@ kdc.conf文件可能包含以下部分：
 
 - **supported_enctypes**
 
-（*键*列表：*salt* strings。）指定此领域的主体的默认键/盐组合。通过[*kadmin*](http://web.mit.edu/kerberos/krb5-latest/doc/admin/admin_commands/kadmin_local.html#kadmin-1)创建的任何主体将具有这些类型的键。该标签的默认值为`aes256-cts-hmac-sha1-96：normal aes128-cts-hmac-sha1-96：normal des3-cbc-sha1：normal arcfour-hmac-md5：normal`。有关可能值的[*列表*](http://web.mit.edu/kerberos/krb5-latest/doc/admin/conf_files/kdc_conf.html#keysalt-lists)，请参阅[*Keysalt列表*](http://web.mit.edu/kerberos/krb5-latest/doc/admin/conf_files/kdc_conf.html#keysalt-lists)。
+（*键*列表：*salt* strings。）指定此领域的主体的默认键/盐组合。通过[kadmin](http://web.mit.edu/kerberos/krb5-latest/doc/admin/admin_commands/kadmin_local.html#kadmin-1)创建的任何主体将具有这些类型的键。该标签的默认值为`aes256-cts-hmac-sha1-96：normal aes128-cts-hmac-sha1-96：normal des3-cbc-sha1：normal arcfour-hmac-md5：normal`。有关可能值的[列表](http://web.mit.edu/kerberos/krb5-latest/doc/admin/conf_files/kdc_conf.html#keysalt-lists)，请参阅[Keysalt列表](http://web.mit.edu/kerberos/krb5-latest/doc/admin/conf_files/kdc_conf.html#keysalt-lists)。
 
 ##### [dbdefaults]
 
-[dbdefaults]部分指定某些数据库参数的默认值，如果[dbmodules]子部分不包含该标记的关系，则使用该值。有关这些关系的定义，请参阅[*dbmodules*](http://web.mit.edu/kerberos/krb5-latest/doc/admin/conf_files/kdc_conf.html#dbmodules)部分。
+[dbdefaults]部分指定某些数据库参数的默认值，如果[dbmodules]子部分不包含该标记的关系，则使用该值。有关这些关系的定义，请参阅[dbmodules](http://web.mit.edu/kerberos/krb5-latest/doc/admin/conf_files/kdc_conf.html#dbmodules)部分。
 
 - **ldap_kerberos_container_dn**
 - **ldap_kdc_dn**
@@ -1247,7 +1247,7 @@ kdc.conf文件可能包含以下部分：
 
 - **database_name**
 
-此DB2特定标记指示数据库在文件系统中的位置。默认值为*[LOCALSTATEDIR ](http://web.mit.edu/kerberos/krb5-latest/doc/mitK5defaults.html#paths)* `/krb5kdc/principal`。
+此DB2特定标记指示数据库在文件系统中的位置。默认值为[LOCALSTATEDIR ](http://web.mit.edu/kerberos/krb5-latest/doc/mitK5defaults.html#paths)* `/krb5kdc/principal`。
 
 - **db_library**
 
@@ -1267,7 +1267,7 @@ kdc.conf文件可能包含以下部分：
 
 - **ldap_kdc_dn** and **ldap_kadmind_dn**
 
-这些特定于LDAP的标签表示绑定到LDAP服务器的默认DN。该[*krb5kdc*](http://web.mit.edu/kerberos/krb5-latest/doc/admin/admin_commands/krb5kdc.html#krb5kdc-8)守护进程使用**ldap_kdc_dn**，而[*kadmind的*](http://web.mit.edu/kerberos/krb5-latest/doc/admin/admin_commands/kadmind.html#kadmind-8)守护程序和其他行政程序使用**ldap_kadmind_dn**。kadmind DN必须具有读取和写入LDAP数据库中的Kerberos数据的权限。除非**disable_lockout**和**disable_last_success**为true ，否则KDC DN必须具有相同的权限， 在这种情况下，它只需要具有读取Kerberos数据的权限。如果使用**ldap_kdc_sasl_mech**或**ldap_kadmind_sasl_mech**设置SASL机制，则忽略这些标记 。
+这些特定于LDAP的标签表示绑定到LDAP服务器的默认DN。该[krb5kdc](http://web.mit.edu/kerberos/krb5-latest/doc/admin/admin_commands/krb5kdc.html#krb5kdc-8)守护进程使用**ldap_kdc_dn**，而[kadmind的](http://web.mit.edu/kerberos/krb5-latest/doc/admin/admin_commands/kadmind.html#kadmind-8)守护程序和其他行政程序使用**ldap_kadmind_dn**。kadmind DN必须具有读取和写入LDAP数据库中的Kerberos数据的权限。除非**disable_lockout**和**disable_last_success**为true ，否则KDC DN必须具有相同的权限， 在这种情况下，它只需要具有读取Kerberos数据的权限。如果使用**ldap_kdc_sasl_mech**或**ldap_kadmind_sasl_mech**设置SASL机制，则忽略这些标记 。
 
 - **ldap_kdc_sasl_mech** and **ldap_kadmind_sasl_mech**
 
@@ -1311,15 +1311,15 @@ kdc.conf文件可能包含以下部分：
 
 ##### [logging]
 
-[logging]部分指示[*krb5kdc*](http://web.mit.edu/kerberos/krb5-latest/doc/admin/admin_commands/krb5kdc.html#krb5kdc-8)和 [*kadmind*](http://web.mit.edu/kerberos/krb5-latest/doc/admin/admin_commands/kadmind.html#kadmind-8)如何执行日志记录。它可能包含以下关系：
+[logging]部分指示[krb5kdc](http://web.mit.edu/kerberos/krb5-latest/doc/admin/admin_commands/krb5kdc.html#krb5kdc-8)和 [kadmind](http://web.mit.edu/kerberos/krb5-latest/doc/admin/admin_commands/kadmind.html#kadmind-8)如何执行日志记录。它可能包含以下关系：
 
 - **admin_server**
 
-指定[*kadmind*](http://web.mit.edu/kerberos/krb5-latest/doc/admin/admin_commands/kadmind.html#kadmind-8)如何执行日志记录。
+指定[kadmind](http://web.mit.edu/kerberos/krb5-latest/doc/admin/admin_commands/kadmind.html#kadmind-8)如何执行日志记录。
 
 - **kdc**
 
-指定[*krb5kdc*](http://web.mit.edu/kerberos/krb5-latest/doc/admin/admin_commands/krb5kdc.html#krb5kdc-8)如何执行日志记录。
+指定[krb5kdc](http://web.mit.edu/kerberos/krb5-latest/doc/admin/admin_commands/krb5kdc.html#krb5kdc-8)如何执行日志记录。
 
 - **default**
 
@@ -1349,7 +1349,7 @@ kdc.conf文件可能包含以下部分：
 
 这将导致守护程序的日志消息进入指定的设备。
 
-- **SYSLOG[:*severity*[:*facility*]]**
+- **SYSLOG[:*severity[:*facility]*]
 
 
 这将导致守护程序的日志消息进入系统日志。
@@ -1378,13 +1378,12 @@ facility参数指定记录消息的工具。这可能是syslog（3）调用减�
 
 - **server**
 
-
-这是发送RADIUS请求的服务器。它可以是可选端口的主机名，可选端口的IP地址或Unix域套接字地址。默认值为 [*LOCALSTATEDIR *](http://web.mit.edu/kerberos/krb5-latest/doc/mitK5defaults.html#paths)`/ krb5kdc/<name>.socket`。
+这是发送RADIUS请求的服务器。它可以是可选端口的主机名，可选端口的IP地址或Unix域套接字地址。默认值为 [LOCALSTATEDIR](http://web.mit.edu/kerberos/krb5-latest/doc/mitK5defaults.html#paths)`/ krb5kdc/<name>.socket`。
 
 - **secret**
 
 
-此标记表示包含用于加密RADIUS数据包的秘密的文件名（可能与[*LOCALSTATEDIR *](http://web.mit.edu/kerberos/krb5-latest/doc/mitK5defaults.html#paths)`/ krb5kdc有关`）。秘密应该自己出现在文件的第一行; 线上的前导和尾随空格将被删除。如果**服务器的**值为Unix域套接字地址，则此标记是可选的，如果未指定，则将使用空的秘密。否则，此标记是必需的。
+此标记表示包含用于加密RADIUS数据包的秘密的文件名（可能与[LOCALSTATEDIR](http://web.mit.edu/kerberos/krb5-latest/doc/mitK5defaults.html#paths)`/ krb5kdc有关`）。秘密应该自己出现在文件的第一行; 线上的前导和尾随空格将被删除。如果**服务器的**值为Unix域套接字地址，则此标记是可选的，如果未指定，则将使用空的秘密。否则，此标记是必需的。
 
 - **timeout**
 
@@ -1408,7 +1407,7 @@ facility参数指定记录消息的工具。这可能是syslog（3）调用减�
 
 在以下示例中，请求通过UDP发送到远程服务器：
 
-```
+```conf
 [otp]
     MyRemoteTokenType = {
         server = radius.mydomain.com:1812
@@ -1421,7 +1420,7 @@ facility参数指定记录消息的工具。这可能是syslog（3）调用减�
 
 `默认`值为`DEFAULT的`默认令牌类型是为每个主配置未指定令牌类型而定义的。其配置如下所示。您可以将此令牌类型覆盖适用于您的情况：
 
-```
+```conf
 [otp]
     DEFAULT = {
         strip_realm = false
@@ -1466,7 +1465,7 @@ facility参数指定记录消息的工具。这可能是syslog（3）调用减�
 
 以下是kdc.conf文件的示例：
 
-```
+```conf
 [kdcdefaults]
     kdc_listen = 88
     kdc_tcp_listen = 88
@@ -1503,8 +1502,6 @@ facility参数指定记录消息的工具。这可能是syslog（3）调用减�
     }
 ```
 
-
-
 ### 1.3 使用OpenLDAP后端配置Kerberos
 
 1. 在OpenLDAP服务器和客户端上设置SSL，以确保KDC服务和LDAP服务器位于不同机器上时的安全通信。 如果LDAP服务器和KDC服务在同一台机器上运行，则可以使用`ldapi：//`。
@@ -1522,27 +1519,25 @@ facility参数指定记录消息的工具。这可能是syslog（3）调用减�
 
      - 对于KDC和Admin Server，您需要在ldap.conf中进行客户端配置。例如：
 
-```
+```conf
 TLS_CACERT /etc/openldap/certs/cacert.pem
 ```
 
-
-
 2. 通过提供其存储位置，在LDAP服务器的配置文件（slapd.conf）中包含Kerberos模式文件（kerberos.schema）：
 
-```
+```conf
 include /etc/openldap/schema/kerberos.schema
 ```
 
-3. 选择要将[*krb5kdc*](http://web.mit.edu/kerberos/krb5-latest/doc/admin/admin_commands/krb5kdc.html#krb5kdc-8)和[*kadmind*](http://web.mit.edu/kerberos/krb5-latest/doc/admin/admin_commands/kadmind.html#kadmind-8)服务器绑定到LDAP服务器的DN ，并在必要时创建它们。这些DN将使用[*kdc.conf中*](http://web.mit.edu/kerberos/krb5-latest/doc/admin/conf_files/kdc_conf.html#kdc-conf-5)的**ldap_kdc_dn**和**ldap_kadmind_dn** 指令进行[*指定*](http://web.mit.edu/kerberos/krb5-latest/doc/admin/conf_files/kdc_conf.html#kdc-conf-5) ; 他们的密码可以用“ `kdb5_ldap_util stashsrvpw` ”和使用**ldap_service_password_file**指令指定的结果文件进行**存储**。
+3. 选择要将[krb5kdc](http://web.mit.edu/kerberos/krb5-latest/doc/admin/admin_commands/krb5kdc.html#krb5kdc-8)和[kadmind](http://web.mit.edu/kerberos/krb5-latest/doc/admin/admin_commands/kadmind.html#kadmind-8)服务器绑定到LDAP服务器的DN ，并在必要时创建它们。这些DN将使用[kdc.conf中](http://web.mit.edu/kerberos/krb5-latest/doc/admin/conf_files/kdc_conf.html#kdc-conf-5)的**ldap_kdc_dn**和**ldap_kadmind_dn** 指令进行[指定](http://web.mit.edu/kerberos/krb5-latest/doc/admin/conf_files/kdc_conf.html#kdc-conf-5) ; 他们的密码可以用“ `kdb5_ldap_util stashsrvpw` ”和使用**ldap_service_password_file**指令指定的结果文件进行**存储**。
 
-4. 为全局Kerberos容器条目选择一个DN（但不要在此时创建该条目）。将使用[*kdc.conf中*](http://web.mit.edu/kerberos/krb5-latest/doc/admin/conf_files/kdc_conf.html#kdc-conf-5)的**ldap_kerberos_container_dn**指令指定此DN 。将在此DN下创建领域容器条目。主体条目可能存在于领域容器（默认值）下方，也可能存在于从领域容器引用的单独树中。
+4. 为全局Kerberos容器条目选择一个DN（但不要在此时创建该条目）。将使用[kdc.conf中](http://web.mit.edu/kerberos/krb5-latest/doc/admin/conf_files/kdc_conf.html#kdc-conf-5)的**ldap_kerberos_container_dn**指令指定此DN 。将在此DN下创建领域容器条目。主体条目可能存在于领域容器（默认值）下方，也可能存在于从领域容器引用的单独树中。
 
-5. 配置LDAP服务器ACL以使KDC和kadmin服务器DN读取和写入Kerberos数据。如果在领域的[*dbmodules*](http://web.mit.edu/kerberos/krb5-latest/doc/admin/conf_files/kdc_conf.html#dbmodules)子部分中**disable_last_success**和**disable_lockout**都设置为true ，则KDC DN仅需要对Kerberos数据的读取访问。
+5. 配置LDAP服务器ACL以使KDC和kadmin服务器DN读取和写入Kerberos数据。如果在领域的[dbmodules](http://web.mit.edu/kerberos/krb5-latest/doc/admin/conf_files/kdc_conf.html#dbmodules)子部分中**disable_last_success**和**disable_lockout**都设置为true ，则KDC DN仅需要对Kerberos数据的读取访问。
 
    示例访问控制信息：
 
-```
+```conf
 access to dn.base=""
     by * read
 
@@ -1575,13 +1570,13 @@ access to *
 
 6. 启动LDAP服务器，如下所示：
 
-```
+```bash
 slapd -h "ldapi:/// ldaps:///"
 ```
 
-7. 修改[*kdc.conf*](http://web.mit.edu/kerberos/krb5-latest/doc/admin/conf_files/kdc_conf.html#kdc-conf-5)文件以包括下列LDAP特定项目：
+7. 修改[kdc.conf](http://web.mit.edu/kerberos/krb5-latest/doc/admin/conf_files/kdc_conf.html#kdc-conf-5)文件以包括下列LDAP特定项目：
 
-```
+```conf
 realms
     database_module
 
@@ -1595,21 +1590,21 @@ dbmodules
     ldap_conns_per_server
 ```
 
-8. 使用[*kdb5_ldap_util*](http://web.mit.edu/kerberos/krb5-latest/doc/admin/admin_commands/kdb5_ldap_util.html#kdb5-ldap-util-8)创建领域（请参阅 [*创建Kerberos领域*](http://web.mit.edu/kerberos/krb5-latest/doc/admin/database.html#ldap-create-realm)）：
+8. 使用[kdb5_ldap_util](http://web.mit.edu/kerberos/krb5-latest/doc/admin/admin_commands/kdb5_ldap_util.html#kdb5-ldap-util-8)创建领域（请参阅 [创建Kerberos领域](http://web.mit.edu/kerberos/krb5-latest/doc/admin/database.html#ldap-create-realm)）：
 
-```
+```bash
 kdb5_ldap_util -D cn=admin,dc=example,dc=com create -subtrees ou=users,dc=example,dc=com -r EXAMPLE.COM -s
 ```
 
 如果主体将存在于与领域容器的单独子树中，则使用**-subtrees**选项。在执行命令之前，请确保存在上述的子树 `（ou = users，dc = example，dc = com）`。如果主体将存在于领域容器下方，请忽略**-subtrees**选项，而不用担心创建主体子树。
 
-有关详细信息，请参阅[*LDAP数据库上的操作*](http://web.mit.edu/kerberos/krb5-latest/doc/admin/database.html#ops-on-ldap)一节。
+有关详细信息，请参阅[LDAP数据库上的操作](http://web.mit.edu/kerberos/krb5-latest/doc/admin/database.html#ops-on-ldap)一节。
 
 在配置文件中指定的**ldap_kerberos_container_dn**下创建域对象 。此操作也将创建Kerberos容器，如果不存在的话。这将用于存储与所有领域相关的信息。
 
-9. 使用[*kdb5_ldap_util*](http://web.mit.edu/kerberos/krb5-latest/doc/admin/admin_commands/kdb5_ldap_util.html#kdb5-ldap-util-8) **stashsrvpw**命令将KDC和管理服务使用的[*服务对象的密码保存*](http://web.mit.edu/kerberos/krb5-latest/doc/admin/database.html#stash-ldap)为绑定到LDAP服务器 （请参阅“ [*冻结服务对象的密码”*](http://web.mit.edu/kerberos/krb5-latest/doc/admin/database.html#stash-ldap)）。对象DN应与[*kdc.conf*](http://web.mit.edu/kerberos/krb5-latest/doc/admin/conf_files/kdc_conf.html#kdc-conf-5)文件中指定的**ldap_kdc_dn**和**ldap_kadmind_dn**值 相同 ：
+9. 使用[kdb5_ldap_util](http://web.mit.edu/kerberos/krb5-latest/doc/admin/admin_commands/kdb5_ldap_util.html#kdb5-ldap-util-8) **stashsrvpw**命令将KDC和管理服务使用的[服务对象的密码保存](http://web.mit.edu/kerberos/krb5-latest/doc/admin/database.html#stash-ldap)为绑定到LDAP服务器 （请参阅“ [冻结服务对象的密码”](http://web.mit.edu/kerberos/krb5-latest/doc/admin/database.html#stash-ldap)）。对象DN应与[kdc.conf](http://web.mit.edu/kerberos/krb5-latest/doc/admin/conf_files/kdc_conf.html#kdc-conf-5)文件中指定的**ldap_kdc_dn**和**ldap_kadmind_dn**值 相同 ：
 
-```
+```bash
 kdb5_ldap_util -D cn=admin,dc=example,dc=com stashsrvpw -f /etc/kerberos/service.keyfile cn=krbadmin,dc=example,dc=com
 ```
 
@@ -1621,9 +1616,6 @@ kdb5_ldap_util -D cn=admin,dc=example,dc=com stashsrvpw -f /etc/kerberos/service
 
 当客户端请求规范化时，主体别名仅由KDC返回。通常要求服务主体规范化; 对于客户主体，通常需要显式标志（例如，`kinit -C`），并且仅对初始票据请求执行规范化。
 
-
-
 **也可以看看**
 
-[*Ubuntu 10.4上的LDAP后端（lucid）*](http://web.mit.edu/kerberos/krb5-latest/doc/admin/advanced/ldapbackend.html#ldap-be-ubuntu)
-
+[Ubuntu 10.4上的LDAP后端（lucid）](http://web.mit.edu/kerberos/krb5-latest/doc/admin/advanced/ldapbackend.html#ldap-be-ubuntu)
