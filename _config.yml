@@ -83,3 +83,67 @@ deploy: # 部署部分的设置
   type: git # 使用 git 提交
   repository: git@github.com:whg517/whg517.github.io.git  # 存放博客的仓库地址 
   branch: master
+
+
+theme_config:
+  #==================================
+  # themes config
+
+  # ---------------------------------------------------------------
+  # Menu Settings
+  # ---------------------------------------------------------------
+
+  # When running the site in a subdirectory (e.g. domain.tld/blog), remove the leading slash from link value (/archives -> archives).
+  # Usage: `Key: /link/ || icon`
+  # Key is the name of menu item. If translate for this menu will find in languages - this translate will be loaded; if not - Key name will be used. Key is case-senstive.
+  # Value before `||` delimeter is the target link.
+  # Value after `||` delimeter is the name of FontAwesome icon. If icon (with or without delimeter) is not specified, question icon will be loaded.
+  # External url should start with http:// or https://
+  menu:
+    home: / || home
+    #about: /about/ || user
+    tags: /tags/ || tags
+    categories: /categories/ || th
+    archives: /archives/ || archive
+    #schedule: /schedule/ || calendar
+    #sitemap: /sitemap.xml || sitemap
+    #commonweal: /404/ || heartbeat
+
+  # ---------------------------------------------------------------
+  # Scheme Settings
+  # ---------------------------------------------------------------
+
+  # Schemes
+  #scheme: Muse  # 默认 Scheme，这是 NexT 最初的版本，黑白主调，大量留白
+  scheme: Mist # Muse 的紧凑版本，整洁有序的单栏外观
+  #scheme: Pisces # 双栏 Scheme，小家碧玉似的清新
+  #scheme: Gemini
+
+
+  # ---------------------------------------------------------------
+  # Sidebar Settings
+  # ---------------------------------------------------------------
+
+  # Posts / Categories / Tags in sidebar.
+  site_state: true
+
+  # Social Links
+  # Usage: `Key: permalink || icon`
+  # Key is the link label showing to end users.
+  # Value before `||` delimeter is the target permalink.
+  # Value after `||` delimeter is the name of FontAwesome icon. If icon (with or without delimeter) is not specified, globe icon will be loaded.
+  social:
+    GitHub: https://github.com/whg517 || github
+    E-Mail: huagang517@126.com || envelope
+
+
+  # Blog rolls
+  # 友情链接
+  links_icon: link
+  links_title: Links  #标题
+  links_layout: block #布局，一行一个连接
+  #links_layout: inline
+  links:  #连接
+    example: http://example.com
+    baidu: https://www.baidu.com
+    google: https://www.google.com
