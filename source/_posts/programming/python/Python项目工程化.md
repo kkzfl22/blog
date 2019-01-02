@@ -19,6 +19,8 @@ Python version 3.6
 
 在这里推荐使用 Miniconda 或者 Anaconda 安装 Python。方便管理 Python。上面各处的版本均为对应对心的 Python 3.6 版本。在使用 conda 安装 Python 的时候，推荐将 conda 注册到 PATH 中。
 
+<!-- more -->
+
 ### 2. 虚拟环境工具
 
 #### virtualenv
