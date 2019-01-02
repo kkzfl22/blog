@@ -19,7 +19,7 @@ categories: 开发
 |     Title     | Style Guide for Python Code                                  |
 |    Version    | c451868df657                                                 |
 | Last-Modified | 2016-06-08 10:43:53 -0400 (Wed, 08 Jun 2016)                 |
-|    Author     | Guido van Rossum \<guido at python.org\>, Barry Warsaw \<barry at python.org\>, Nick Coghlan \<ncoghlan at gmail.com\> |
+|    Author     | Guido van Rossum &lt;guido at python.org&gt;, Barry Warsaw &lt;barry at python.org&gt;, Nick Coghlan &lt;ncoghlan at gmail.com&gt; |
 |    Status     | Active                                                       |
 |     Type      | Process                                                      |
 | Content-Type  | text/x-rst                                                   |
