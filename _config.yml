@@ -8,7 +8,7 @@ subtitle: Hello World ! # 网站副标题
 description: I Love You !   # 网站描述
 keywords:
 author: huagang  # 您的名字
-language: zh-Hans # 网站使用的语言
+language: zh-CN # 网站使用的语言
 timezone:   # 网站时区。Hexo 默认使用您电脑的时区。
 
 # URL 网址
